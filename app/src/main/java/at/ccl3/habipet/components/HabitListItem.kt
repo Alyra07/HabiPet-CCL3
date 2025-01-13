@@ -1,7 +1,9 @@
 package at.ccl3.habipet.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,9 +23,10 @@ fun HabitListItem(habit: Habit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = habit.name, style = MaterialTheme.typography.headlineSmall)
-            Text(text = habit.description, style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Repetition: ${habit.repetition}", style = MaterialTheme.typography.bodySmall)
+            Text(text = habit.name, style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = habit.description, style = MaterialTheme.typography.bodyLarge)
+            Text(text = "Repetition: ${habit.repetition}", style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

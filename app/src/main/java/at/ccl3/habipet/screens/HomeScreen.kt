@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,8 +16,11 @@ import at.ccl3.habipet.viewmodel.HabitViewModel
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
-    // Collect the list of habits from the ViewModel
+    // Collect list of habits from the ViewModel
     val habits = viewModel.allHabits.collectAsState().value
+
+    // Get the 4 most recent habits based on the highest streak
+    val recentHabits = habits.sortedByDescending { it.streak }.take(4)
 
     LazyColumn(
         modifier = Modifier
@@ -24,10 +28,12 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
             .padding(16.dp)
     ) {
         item {
-            Text(text = "Welcome to HabiPet!")
+            Text(
+                text = "Recent Habits", style = MaterialTheme.typography.headlineSmall
+            )
         }
-        // Display habits from the ViewModel
-        items(habits) { habit ->
+        // display 4 most recent streak habits
+        items(recentHabits) { habit ->
             HabitListItem(habit = habit)
         }
     }
