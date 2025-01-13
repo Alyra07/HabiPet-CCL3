@@ -1,5 +1,6 @@
 package at.ccl3.habipet.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +16,12 @@ import androidx.compose.ui.unit.dp
 import at.ccl3.habipet.data.Habit
 
 @Composable
-fun HabitListItem(habit: Habit) {
+fun HabitListItem(habit: Habit, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable { onClick() }, // handle navigation to HabitDetailsView
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {

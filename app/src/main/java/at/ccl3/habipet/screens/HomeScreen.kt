@@ -34,7 +34,10 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
         }
         // display 4 most recent streak habits
         items(recentHabits) { habit ->
-            HabitListItem(habit = habit)
+            HabitListItem(habit = habit) {
+                // pass habit ID to HabitDetailsView
+                navController.navigate("habit_details/${habit.id}")
+            }
         }
     }
 }

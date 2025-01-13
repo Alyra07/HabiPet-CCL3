@@ -27,9 +27,12 @@ fun HabitsScreen(navController: NavController, viewModel: HabitViewModel) {
         item {
             Text(text = "Your Habits", style = MaterialTheme.typography.headlineSmall)
         }
-        // Display habits from the ViewModel
+        // Display all habits from ViewModel
         items(habits) { habit ->
-            HabitListItem(habit = habit)
+            HabitListItem(habit = habit) {
+                // pass habit ID to HabitDetailsView onClick
+                navController.navigate("habit_details/${habit.id}")
+            }
         }
     }
 }

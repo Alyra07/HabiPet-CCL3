@@ -21,8 +21,10 @@ import at.ccl3.habipet.ui.theme.HabiPetTheme
 import at.ccl3.habipet.viewmodel.HabitViewModel
 import at.ccl3.habipet.viewmodel.HabitViewModelFactory
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import at.ccl3.habipet.components.BottomNavBar
-import at.ccl3.habipet.screens.HabitDetails
+import at.ccl3.habipet.screens.HabitDetailsView
 import at.ccl3.habipet.screens.ShopScreen
 
 class MainActivity : ComponentActivity() {
@@ -56,13 +58,20 @@ fun HabiPetApp(habitViewModel: HabitViewModel) {
             startDestination = "home",
             modifier = Modifier.padding(innerPadding)
         ) {
-            // ROUTES
+            // MAIN NAVIGATION ROUTES
             composable("home") { HomeScreen(navController, habitViewModel) }
             composable("pet") { PetScreen(navController, habitViewModel) }
             composable("add_habit") { AddHabitScreen(navController, habitViewModel) }
             composable("habits") { HabitsScreen(navController, habitViewModel) }
             composable("shop") { ShopScreen(navController, habitViewModel) }
-            composable("habit_details") { HabitDetails(navController, habitViewModel) }
+
+            composable( // HabitDetails with habitId onClick HabitListItem
+                route = "habit_details/{habitId}",
+                arguments = listOf(navArgument("habitId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val habitId = backStackEntry.arguments?.getInt("habitId") ?: return@composable
+                HabitDetailsView(navController, habitViewModel, habitId)
+            }
         }
     }
 }
