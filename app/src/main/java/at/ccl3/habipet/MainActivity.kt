@@ -22,6 +22,7 @@ import at.ccl3.habipet.viewmodel.HabitViewModel
 import at.ccl3.habipet.viewmodel.HabitViewModelFactory
 import androidx.compose.ui.Modifier
 import at.ccl3.habipet.components.BottomNavBar
+import at.ccl3.habipet.screens.HabitDetails
 import at.ccl3.habipet.screens.ShopScreen
 
 class MainActivity : ComponentActivity() {
@@ -61,6 +62,7 @@ fun HabiPetApp(habitViewModel: HabitViewModel) {
             composable("add_habit") { AddHabitScreen(navController, habitViewModel) }
             composable("habits") { HabitsScreen(navController, habitViewModel) }
             composable("shop") { ShopScreen(navController, habitViewModel) }
+            composable("habit_details") { HabitDetails(navController, habitViewModel) }
         }
     }
 }

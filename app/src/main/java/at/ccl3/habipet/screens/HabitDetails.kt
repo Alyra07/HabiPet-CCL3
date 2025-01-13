@@ -11,13 +11,12 @@ import androidx.navigation.NavController
 import at.ccl3.habipet.viewmodel.HabitViewModel
 
 @Composable
-fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
+fun HabitDetails (navController: NavController, viewModel: HabitViewModel) {
     LazyColumn (
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         item {
-            Text(text = "Welcome to AddHabit!")
+            Text(text = "Habit Details here!")
         }
-        // Add more UI elements
     }
 }
