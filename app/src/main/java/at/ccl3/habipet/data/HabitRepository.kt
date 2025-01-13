@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 
 class HabitRepository(private val habitDao: HabitDao) {
+    // READ
     val allHabits: Flow<List<Habit>> = habitDao.getAllHabits()
 
     // CREATE

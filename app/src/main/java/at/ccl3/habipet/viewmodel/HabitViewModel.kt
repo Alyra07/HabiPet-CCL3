@@ -1,5 +1,6 @@
 package at.ccl3.habipet.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.ccl3.habipet.data.Habit
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HabitViewModel(private val repository: HabitRepository) : ViewModel() {
-    // Use StateFlow to store habits
+
     private val _allHabits = MutableStateFlow<List<Habit>>(emptyList())
     val allHabits: StateFlow<List<Habit>> = _allHabits
 
