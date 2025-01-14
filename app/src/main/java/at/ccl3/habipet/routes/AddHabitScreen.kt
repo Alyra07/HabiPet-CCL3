@@ -1,4 +1,4 @@
-package at.ccl3.habipet.screens
+package at.ccl3.habipet.routes
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.data.Habit
-import at.ccl3.habipet.viewmodel.HabitViewModel
+import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
 fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
@@ -92,6 +92,7 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                             icon = icon,
                             color = color
                         )
+                        // Insert new habit via HabitViewModel
                         viewModel.insert(newHabit)
                         navController.navigateUp() // Navigate back after saving
                     } else {

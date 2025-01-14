@@ -1,4 +1,4 @@
-package at.ccl3.habipet.screens
+package at.ccl3.habipet.routes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.viewmodel.HabitViewModel
+import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
 fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habitId: Int) {

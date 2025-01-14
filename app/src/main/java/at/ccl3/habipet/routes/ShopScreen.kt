@@ -1,4 +1,4 @@
-package at.ccl3.habipet.screens
+package at.ccl3.habipet.routes
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,15 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.viewmodel.HabitViewModel
+import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
-fun PetScreen(navController: NavController, viewModel: HabitViewModel) {
+fun ShopScreen(navController: NavController, viewModel: HabitViewModel) {
     LazyColumn (
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         item {
-            Text(text = "Welcome to Pet!")
+            Text(text = "Welcome to HabiPet Shop!")
         }
         // Add more UI elements
     }

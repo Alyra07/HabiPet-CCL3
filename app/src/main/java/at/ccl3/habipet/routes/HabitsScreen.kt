@@ -1,4 +1,4 @@
-package at.ccl3.habipet.screens
+package at.ccl3.habipet.routes
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,16 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HabitListItem
-import at.ccl3.habipet.viewmodel.HabitViewModel
+import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
-    // collect list of habits from the HabitViewModel
+fun HabitsScreen(navController: NavController, viewModel: HabitViewModel) {
+    // Collect the list of habits from the HabitViewModel
     val habits = viewModel.allHabits.collectAsState().value
-
-
-    // Get the 4 most recent habits based on the highest streak
-    val recentHabits = habits.sortedByDescending { it.streak }.take(4)
 
     LazyColumn(
         modifier = Modifier
@@ -29,15 +25,13 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
             .padding(16.dp)
     ) {
         item {
-            Text(
-                text = "Recent Habits", style = MaterialTheme.typography.headlineSmall
-            )
+            Text(text = "Your Habits", style = MaterialTheme.typography.headlineSmall)
         }
-        // display 4 most recent streak habits
-        items(recentHabits) { habit ->
+        // Display all habits from HabitViewModel
+        items(habits) { habit ->
             HabitListItem(habit = habit) {
                 val habitId = habit.id
-                // pass habit ID to HabitDetailsView
+                // pass habit ID to HabitDetailsView onClick
                 navController.navigate("habitDetails/$habitId")
             }
         }
