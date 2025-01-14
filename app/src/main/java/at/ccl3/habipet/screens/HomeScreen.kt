@@ -16,8 +16,9 @@ import at.ccl3.habipet.viewmodel.HabitViewModel
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
-    // Collect list of habits from the ViewModel
+    // collect list of habits from the HabitViewModel
     val habits = viewModel.allHabits.collectAsState().value
+
 
     // Get the 4 most recent habits based on the highest streak
     val recentHabits = habits.sortedByDescending { it.streak }.take(4)
@@ -35,8 +36,9 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
         // display 4 most recent streak habits
         items(recentHabits) { habit ->
             HabitListItem(habit = habit) {
+                val habitId = habit.id
                 // pass habit ID to HabitDetailsView
-                navController.navigate("habit_details/${habit.id}")
+                navController.navigate("habitDetails/$habitId")
             }
         }
     }

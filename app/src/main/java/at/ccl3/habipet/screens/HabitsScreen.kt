@@ -30,8 +30,9 @@ fun HabitsScreen(navController: NavController, viewModel: HabitViewModel) {
         // Display all habits from ViewModel
         items(habits) { habit ->
             HabitListItem(habit = habit) {
+                val habitId = habit.id
                 // pass habit ID to HabitDetailsView onClick
-                navController.navigate("habit_details/${habit.id}")
+                navController.navigate("habitDetails/$habitId")
             }
         }
     }

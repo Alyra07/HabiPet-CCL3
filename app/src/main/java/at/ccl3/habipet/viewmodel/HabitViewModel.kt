@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HabitViewModel(private val repository: HabitRepository) : ViewModel() {
-    // StateFlow to hold the list of habits
+    // StateFlow to hold current state of the list of habits
     private val _allHabits = MutableStateFlow<List<Habit>>(emptyList())
     val allHabits: StateFlow<List<Habit>> = _allHabits
 
