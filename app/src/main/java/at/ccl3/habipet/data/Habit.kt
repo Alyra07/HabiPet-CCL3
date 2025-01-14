@@ -9,6 +9,7 @@ data class Habit(
     val name: String,
     val description: String,
     val repetition: String,
+    val streak: Int = 0,
     val icon: String,
     val color: String
 )
