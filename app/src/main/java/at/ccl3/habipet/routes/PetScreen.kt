@@ -12,32 +12,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.R
+import at.ccl3.habipet.components.HeaderWithLogo
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
 fun PetScreen(navController: NavController, viewModel: PetViewModel) {
 
-    // Collect the pet stats from the ViewModel
+    // Collect the petStats from PetViewModel
     val petStats = viewModel.petStats.collectAsState(initial = null).value
 
-    // If petStats is null, display loading or empty state
+    // If petStats is null, display empty state
     if (petStats == null) {
-        Text(text = "Loading pet stats...", modifier = Modifier.padding(16.dp))
+        Text(text = "No pet stats found yet...", modifier = Modifier.padding(16.dp))
         return
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         // HEADER ROW
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Text(
-                text = "Your Habi!", style = MaterialTheme.typography.headlineSmall
-            )
-        }
+        HeaderWithLogo(headingText = "Your HabiPet", navController = navController)
 
         // PET STATS DISPLAY
         Column(
