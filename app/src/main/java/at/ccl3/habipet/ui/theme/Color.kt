@@ -2,10 +2,17 @@ package at.ccl3.habipet.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Primary color palette
+val PrimaryYellow = Color(0xFFFEDD5A)
+val SecondaryBlue = Color(0xFF9CCEFF)
+val WhaleBlue = Color(0xFFA4E3E9)
+val PastelBlue = Color(0xFFC0D6FA)
+val AccentLilac = Color(0xFFDBC1FF)
+val AccentBeige = Color(0xFFF9FDFD)
+val BackgroundBeige = Color(0xFFD2D3C5)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Other accent colors
+val PaleGray = Color(0xFFE6E3F5)
+val SmokeyGray = Color(0xFFB9BCC3)
+val PastelRed = Color(0xFFFF92AF)
+val DarkPurple = Color(0xFF361F4A)
