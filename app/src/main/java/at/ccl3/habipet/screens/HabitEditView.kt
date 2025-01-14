@@ -54,7 +54,7 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
         }
     }
 
-    Column(
+    Column( // EDIT HABIT
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -95,7 +95,7 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
             label = { Text("Color") }
         )
 
-        Row (
+        Row ( // UPDATE & DELETE HABIT
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
                 .align(Alignment.CenterHorizontally),
             horizontalArrangement = Arrangement.SpaceBetween
