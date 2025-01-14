@@ -27,7 +27,6 @@ fun BottomNavBar(navController: NavController) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         contentColor = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(4.dp)
     ) {
         NavigationBar {
             val currentDestination by navController.currentBackStackEntryAsState()
@@ -55,7 +54,8 @@ fun BottomNavBar(navController: NavController) {
                     },
                     label = { if (!item.isSpecial) { Text(text = item.label) } },
                     selected = isSelected,
-                    onClick = { navController.navigate(item.route) }
+                    onClick = { navController.navigate(item.route) },
+                    modifier = Modifier.padding(4.dp)
                 )
             }
         }
