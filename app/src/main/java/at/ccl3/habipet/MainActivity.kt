@@ -11,25 +11,36 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import at.ccl3.habipet.data.HabitDatabase
+import at.ccl3.habipet.data.HabiPetDatabase
 import at.ccl3.habipet.data.HabitRepository
-import at.ccl3.habipet.screens.AddHabitScreen
-import at.ccl3.habipet.screens.HabitsScreen
-import at.ccl3.habipet.screens.HomeScreen
-import at.ccl3.habipet.screens.PetScreen
+import at.ccl3.habipet.routes.AddHabitScreen
+import at.ccl3.habipet.routes.HabitsScreen
+import at.ccl3.habipet.routes.HomeScreen
+import at.ccl3.habipet.routes.PetScreen
 import at.ccl3.habipet.ui.theme.HabiPetTheme
-import at.ccl3.habipet.viewmodel.HabitViewModel
-import at.ccl3.habipet.viewmodel.HabitViewModelFactory
+import at.ccl3.habipet.viewmodels.HabitViewModel
 import androidx.compose.ui.Modifier
 import at.ccl3.habipet.components.BottomNavBar
-import at.ccl3.habipet.screens.HabitDetailsView
-import at.ccl3.habipet.screens.HabitEditView
-import at.ccl3.habipet.screens.ShopScreen
+import at.ccl3.habipet.data.PetStatsRepository
+import at.ccl3.habipet.routes.HabitDetailsView
+import at.ccl3.habipet.routes.HabitEditView
+import at.ccl3.habipet.routes.ShopScreen
+import at.ccl3.habipet.viewmodels.HabiPetViewModelFactory
+import at.ccl3.habipet.viewmodels.PetViewModel
 
 class MainActivity : ComponentActivity() {
+    // Initialize HabitViewModel
     private val habitViewModel: HabitViewModel by viewModels {
-        HabitViewModelFactory(
-            HabitRepository(HabitDatabase.getDatabase(applicationContext).habitDao())
+        HabiPetViewModelFactory(
+            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
+            PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
+        )
+    }
+    // Initialize PetViewModel
+    private val petViewModel: PetViewModel by viewModels {
+        HabiPetViewModelFactory(
+            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
+            PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
         )
     }
 
@@ -37,14 +48,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HabiPetTheme {
-                HabiPetApp(habitViewModel)
+                HabiPetApp(habitViewModel, petViewModel)
             }
         }
     }
 }
 
 @Composable
-fun HabiPetApp(habitViewModel: HabitViewModel) {
+fun HabiPetApp(habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
     val navController = rememberNavController()
 
     // APP NAVIGATION
@@ -59,7 +70,7 @@ fun HabiPetApp(habitViewModel: HabitViewModel) {
         ) {
             // MAIN NAVIGATION ROUTES
             composable("home") { HomeScreen(navController, habitViewModel) }
-            composable("pet") { PetScreen(navController, habitViewModel) }
+            composable("pet") { PetScreen(navController, petViewModel) }
             composable("add_habit") { AddHabitScreen(navController, habitViewModel) }
             composable("habits") { HabitsScreen(navController, habitViewModel) }
             composable("shop") { ShopScreen(navController, habitViewModel) }

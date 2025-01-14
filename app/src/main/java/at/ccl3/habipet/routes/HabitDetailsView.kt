@@ -1,4 +1,4 @@
-package at.ccl3.habipet.screens
+package at.ccl3.habipet.routes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,11 +19,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.viewmodel.HabitViewModel
+import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
 fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, habitId: Int) {
+    // Get habit by ID from HabitViewModel
     val habit = viewModel.getHabitById(habitId).collectAsState(initial = null).value
+
     if (habit != null) {
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(16.dp),

@@ -1,4 +1,4 @@
-package at.ccl3.habipet.viewmodel
+package at.ccl3.habipet.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
