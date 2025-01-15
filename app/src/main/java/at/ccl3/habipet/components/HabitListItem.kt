@@ -22,7 +22,11 @@ fun HabitListItem(habit: Habit, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable { onClick() }, // handle navigation to HabitDetailsView
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = habit.name, style = MaterialTheme.typography.titleLarge)
