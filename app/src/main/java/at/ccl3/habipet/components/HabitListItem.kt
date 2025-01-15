@@ -20,7 +20,6 @@ fun HabitListItem(habit: Habit, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
             .clickable { onClick() }, // handle navigation to HabitDetailsView
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
@@ -35,4 +34,5 @@ fun HabitListItem(habit: Habit, onClick: () -> Unit) {
             Text(text = "Repetition: ${habit.repetition}", style = MaterialTheme.typography.bodyMedium)
         }
     }
+    Spacer(modifier = Modifier.height(16.dp))
 }

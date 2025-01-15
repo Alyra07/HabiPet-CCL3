@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.data.Habit
 import at.ccl3.habipet.viewmodels.HabitViewModel
 
@@ -28,7 +29,7 @@ import at.ccl3.habipet.viewmodels.HabitViewModel
 fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
     var name by rememberSaveable { mutableStateOf("") }
     var description by rememberSaveable { mutableStateOf("") }
-    var repetition by rememberSaveable { mutableStateOf("") }
+    var repetition by rememberSaveable { mutableStateOf("Daily") } // default repetition
     var icon by rememberSaveable { mutableStateOf("") }
     var color by rememberSaveable { mutableStateOf("") }
 
@@ -57,15 +58,12 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
+
             // CHOOSE HABIT REPETITION
             item {
-                TextField(
-                    value = repetition,
-                    onValueChange = { repetition = it },
-                    label = { Text("Repetition") },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
             }
+
             // CHOOSE ICON AND COLOR
             item {
                 TextField(
@@ -83,6 +81,7 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
+
             item { // SAVE BUTTON
                 Button(
                     onClick = {

@@ -1,7 +1,9 @@
 package at.ccl3.habipet.routes
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import at.ccl3.habipet.components.HabitCompleteCard
 import at.ccl3.habipet.components.HabitListItem
 import at.ccl3.habipet.components.HeaderWithLogo
 import at.ccl3.habipet.viewmodels.HabitViewModel
@@ -21,22 +24,31 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
     // collect list of habits from the HabitViewModel
     val habits = viewModel.allHabits.collectAsState().value
 
-
     // Get the 3 most recent habits based on the highest streak
     val recentHabits = habits.sortedByDescending { it.streak }.take(3)
 
-    Column (modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
         // HEADER ROW
         HeaderWithLogo(headingText = "Welcome to HabiPet!", navController = navController)
 
-        // HOME SCREEN UI
+        // HOME SCREEN CONTENT
         LazyColumn(
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
         ) {
+            item { // COMPLETE HABITS SECTION
+                Text(text = "Complete Habit", style = MaterialTheme.typography.headlineSmall)
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            // Display habits to be completed with completion countdown
+            items(habits) { habit ->
+                HabitCompleteCard(habit) { viewModel.completeHabit(habit) }
+            }
+
             item { // RECENT HABITS SECTION
                 Text(
                     text = "Recent Habits", style = MaterialTheme.typography.headlineSmall
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
             // display 3 most recent streak habits
             items(recentHabits) { habit ->

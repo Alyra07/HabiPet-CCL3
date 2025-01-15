@@ -20,10 +20,10 @@ private val LightColorScheme = lightColorScheme(
     tertiary = AccentLilac,
 
     // Other default colors to override
-    background = Color(0xFFFFFBFE),
+    background = BgBeige,
     onBackground = Color(0xFF1C1B1F),
-    surfaceContainer = WhaleBlue, // NavBar color
-    surface = PaleGray, // Card color (HabitListItem)
+    surfaceContainer = PastelBlue, // NavBar color
+    surface = PaleGray, // Card color (HabitListItem & HabitCompleteCard)
     onSurface = Color(0xFF1C1B1F),
     onPrimary = DarkPurple,
     onSecondary = DarkPurple,

@@ -1,5 +1,6 @@
 package at.ccl3.habipet.routes
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import at.ccl3.habipet.components.HabitCompleteCard
 import at.ccl3.habipet.components.HeaderWithLogo
 import at.ccl3.habipet.viewmodels.HabitViewModel
 
@@ -35,6 +37,7 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item { // Habit Description, other details
                     Text(text = habit.description, style = MaterialTheme.typography.bodyLarge)
@@ -63,6 +66,10 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
                         ) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit Habit")
                     }
+                }
+                // COMPLETE HABIT
+                item {
+                    HabitCompleteCard(habit = habit) { viewModel.completeHabit(habit) }
                 }
             }
         }
