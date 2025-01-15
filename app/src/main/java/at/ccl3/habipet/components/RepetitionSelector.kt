@@ -19,7 +19,7 @@ fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
-        listOf("Daily", "Weekly", "Monthly").forEach { option ->
+        listOf("Daily", "Weekly", "Monthly", "Test").forEach { option ->
             Button(
                 onClick = { onRepetitionChange(option) },
                 colors = ButtonDefaults.buttonColors(

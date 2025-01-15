@@ -45,7 +45,7 @@ class HabitRepository(
             val currentPetStats = petStatsRepository.getPetStats().first()
             petStatsRepository.updatePetXP(currentPetStats.id, currentPetStats.xp + 100)
 
-            Log.d("HabitRepository", "Habit completed: $habit , new time completed: $currentTime")
+            Log.d("HabitRepository", "Habit completed: $updatedHabit , new time completed: $currentTime")
             Log.d("HabitRepository", "XP awarded to pet, new XP: ${currentPetStats.xp + 100}")
         } else {
             Log.d(
