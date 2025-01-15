@@ -22,7 +22,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
     suspend fun updatePetXP(id: Int, xp: Int) {
         val updatedPetStats = petStatsDao.getPetStats(id).firstOrNull()?.copy(xp = xp)
         updatedPetStats?.let {
-            petStatsDao.updatePetXP(it)  // Pass the updated PetStats to the DAO
+            petStatsDao.updatePetXP(it)  // pass the updated PetStats to DAO
         }
     }
 }

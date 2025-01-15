@@ -37,6 +37,12 @@ class HabitViewModel(private val repository: HabitRepository) : ViewModel() {
         repository.update(habit)
     }
 
+    fun completeHabit(habit: Habit) {
+        viewModelScope.launch {
+            repository.completeHabit(habit)
+        }
+    }
+
     // DELETE
     fun delete(habit: Habit) = viewModelScope.launch {
         repository.delete(habit)

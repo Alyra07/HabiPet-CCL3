@@ -25,21 +25,23 @@ import at.ccl3.habipet.data.PetStatsRepository
 import at.ccl3.habipet.routes.HabitDetailsView
 import at.ccl3.habipet.routes.HabitEditView
 import at.ccl3.habipet.routes.ShopScreen
-import at.ccl3.habipet.viewmodels.HabiPetViewModelFactory
+import at.ccl3.habipet.viewmodels.HabitViewModelFactory
 import at.ccl3.habipet.viewmodels.PetViewModel
+import at.ccl3.habipet.viewmodels.PetViewModelFactory
 
 class MainActivity : ComponentActivity() {
     // Initialize HabitViewModel
     private val habitViewModel: HabitViewModel by viewModels {
-        HabiPetViewModelFactory(
-            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
-            PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
+        HabitViewModelFactory(
+            HabitRepository(
+                habitDao = HabiPetDatabase.getDatabase(applicationContext).habitDao(),
+                petStatsRepository = PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
+            )
         )
     }
     // Initialize PetViewModel
     private val petViewModel: PetViewModel by viewModels {
-        HabiPetViewModelFactory(
-            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
+        PetViewModelFactory(
             PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
         )
     }
