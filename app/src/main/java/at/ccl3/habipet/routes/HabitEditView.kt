@@ -28,14 +28,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
 fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habitId: Int) {
     var showDialog by remember { mutableStateOf(false) } // delete habit confirmation dialog
 
-    val habit = viewModel.getHabitById(habitId).collectAsState(initial = null).value
     // Initialize habit state variables
+    val habit = viewModel.getHabitById(habitId).collectAsState(initial = null).value
+
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var repetition by remember { mutableStateOf("") }
@@ -79,17 +81,16 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
+
             // REPETITION & STREAK
-            OutlinedTextField(
-                value = repetition,
-                onValueChange = { repetition = it },
-                label = { Text("Repetition") }
-            )
+            RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
+
             OutlinedTextField(
                 value = streak.toString(),
                 onValueChange = { streak = it.toIntOrNull() ?: 0 },
                 label = { Text("Streak") }
             )
+
             // ICON & COLOR
             OutlinedTextField(
                 value = icon,

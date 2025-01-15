@@ -29,6 +29,10 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
     val timeSinceLastCompletion = currentTime - habit.lastCompleted
     val progress = (timeSinceLastCompletion.toFloat() / oneMinuteInMillis).coerceIn(0f, 1f)
 
+    // Calculate the streak progress (x/7 for daily habits)
+    val streakProgress = (habit.streak.toFloat() / 7).coerceIn(0f, 1f)
+    val streakText = "${habit.streak}/7" // Display the current streak towards the 7-day goal
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -38,20 +42,29 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
         )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(text = habit.name, style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(8.dp))
 
-            // PROGRESS BAR
+            // STREAK PROGRESS BAR
             LinearProgressIndicator(
-                progress = { progress },
+                progress = { streakProgress },
+                modifier = Modifier.fillMaxWidth(),
             )
 
             Text(
-                // Based on the progress, display last completed time or "Ready to complete!"
+                // Display streak progress (x/7 for daily)
+                text = "Streak: $streakText",
+                style = MaterialTheme.typography.bodySmall
+            )
+
+            // Last completed time or "Ready to complete!" message
+            Text(
                 text = if (progress < 1f) {
                     "Last completed ${timeSinceLastCompletion / oneMinuteInMillis} minutes ago"
                 } else {
@@ -60,12 +73,13 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                 style = MaterialTheme.typography.bodySmall
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
             // COMPLETE BUTTON
             IconButton(
-                // Handle the logic for completing a habit when the button is clicked
                 onClick = {
                     if (progress >= 1f) {
-                        onComplete()  // Call onComplete function passed from screen
+                        onComplete()  // Call the onComplete function passed from screen
                     }
                 },
                 enabled = progress >= 1f
@@ -78,4 +92,5 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
             }
         }
     }
+    Spacer(modifier = Modifier.height(16.dp))
 }

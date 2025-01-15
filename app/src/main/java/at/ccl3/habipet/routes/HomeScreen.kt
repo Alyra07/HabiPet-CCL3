@@ -1,9 +1,9 @@
 package at.ccl3.habipet.routes
 
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,10 +34,10 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
         // HOME SCREEN CONTENT
         LazyColumn(
             modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp))
-        {
+        ) {
             item { // COMPLETE HABITS SECTION
                 Text(text = "Complete Habit", style = MaterialTheme.typography.headlineSmall)
+                Spacer(modifier = Modifier.height(8.dp))
             }
             // Display habits to be completed with completion countdown
             items(habits) { habit ->
@@ -48,6 +48,7 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
                 Text(
                     text = "Recent Habits", style = MaterialTheme.typography.headlineSmall
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
             // display 3 most recent streak habits
             items(recentHabits) { habit ->
