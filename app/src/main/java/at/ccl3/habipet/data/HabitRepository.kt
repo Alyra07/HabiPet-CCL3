@@ -28,20 +28,30 @@ class HabitRepository(
         Log.d("HabitRepository", "Habit updated: $habit")
     }
 
+    // Complete habit after countdown and update the state
     suspend fun completeHabit(habit: Habit) {
         val currentTime = System.currentTimeMillis()
-        val oneDayInMillis = 24 * 60 * 60 * 1000
+        val oneMinuteInMillis = 60 * 1000 // 1 minute in milliseconds
 
-        if (currentTime - habit.lastCompleted >= oneDayInMillis) {
-            // Update habit's streak and lastCompleted time
+        if (currentTime - habit.lastCompleted >= oneMinuteInMillis) {
+            // Habit can be completed
             val updatedHabit = habit.copy(
                 streak = habit.streak + 1,
                 lastCompleted = currentTime
             )
             habitDao.update(updatedHabit)
-            // Award 100 XP to the pet
+
+            // Award XP to the pet
             val currentPetStats = petStatsRepository.getPetStats().first()
             petStatsRepository.updatePetXP(currentPetStats.id, currentPetStats.xp + 100)
+
+            Log.d("HabitRepository", "Habit completed: $habit , new time completed: $currentTime")
+            Log.d("HabitRepository", "XP awarded to pet, new XP: ${currentPetStats.xp + 100}")
+        } else {
+            Log.d(
+                "HabitRepository",
+                "Habit not completed. Time since last completion: ${currentTime - habit.lastCompleted}"
+            )
         }
     }
 

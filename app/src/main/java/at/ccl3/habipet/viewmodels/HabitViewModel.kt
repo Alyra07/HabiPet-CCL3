@@ -1,5 +1,6 @@
 package at.ccl3.habipet.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.ccl3.habipet.data.Habit
@@ -14,7 +15,8 @@ class HabitViewModel(private val repository: HabitRepository) : ViewModel() {
     private val _allHabits = MutableStateFlow<List<Habit>>(emptyList())
     val allHabits: StateFlow<List<Habit>> = _allHabits
 
-    init { // Fetch all habits from the repository
+    init {
+        // Fetch all habits from the repository and update the state
         viewModelScope.launch {
             repository.allHabits.collect { habits ->
                 _allHabits.value = habits
@@ -38,6 +40,7 @@ class HabitViewModel(private val repository: HabitRepository) : ViewModel() {
     }
 
     fun completeHabit(habit: Habit) {
+        Log.d("HabitViewModel", "Calling completeHabit for: ${habit.name}")
         viewModelScope.launch {
             repository.completeHabit(habit)
         }
