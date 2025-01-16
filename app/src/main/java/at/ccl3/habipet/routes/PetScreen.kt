@@ -17,7 +17,6 @@ import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
 fun PetScreen(navController: NavController, viewModel: PetViewModel) {
-
     // Collect the petStats from PetViewModel
     val petStats = viewModel.petStats.collectAsState(initial = null).value
 
@@ -62,6 +61,20 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+            // COINS
+            Row {
+                Image(
+                    painter = painterResource(id = R.drawable.habi_coin),
+                    contentDescription = "Coins",
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Coins: ${petStats.coins}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
         }
 
         Box( // BACKGROUND & PET IMAGE

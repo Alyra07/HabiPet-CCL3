@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey
 data class PetStats(
     @PrimaryKey val id: Int,
     val name: String,
-    val level: Int,
-    val xp: Int,
+    var level: Int,
+    var xp: Int, // needed to level up
     val skin: String,
-    val habitat: String,
+    val habitat: String, // PetScreen background
+    var coins: Int // currency to use in shop
 )

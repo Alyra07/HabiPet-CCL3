@@ -22,11 +22,19 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
         }
     }
 
-    // UPDATE
+    // UPDATE XP
     fun updatePetXP(id: Int, xp: Int) {
         viewModelScope.launch {
             repository.updatePetXP(id, xp)
             Log.d("PetViewModel", "Updated Pet $id with: $xp XP")
+        }
+    }
+
+    // UPDATE Coins
+    fun updatePetCoins(id: Int, coins: Int) {
+        viewModelScope.launch {
+            repository.updatePetCoins(id, coins)
+            Log.d("PetViewModel", "Updated Pet $id with: $coins Coins")
         }
     }
 }

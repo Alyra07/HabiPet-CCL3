@@ -19,5 +19,5 @@ interface PetStatsDao {
 
     // UPDATE
     @Update
-    suspend fun updatePetXP(petStats: PetStats)
+    suspend fun updatePetStats(petStats: PetStats)
 }
