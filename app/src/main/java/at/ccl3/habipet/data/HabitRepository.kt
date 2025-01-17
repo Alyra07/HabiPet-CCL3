@@ -59,7 +59,7 @@ class HabitRepository(
 
             // Check if streak goal is met before awarding extra COINS
             if (updatedHabit.streak == 0 && habit.streak + 1 >= streakGoal) {
-                petStatsRepository.updatePetCoins(currentPetStats.id, currentPetStats.coins)
+                petStatsRepository.addCoins(currentPetStats.id, currentPetStats.coins)
             }
 
             Log.d("HabitRepository", "Habit completed: $updatedHabit , new time completed: $currentTime")

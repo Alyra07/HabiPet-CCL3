@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.ccl3.habipet.data.PetStatsRepository
 import at.ccl3.habipet.data.PetStats
+import at.ccl3.habipet.views.ShopItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
@@ -22,19 +24,31 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
         }
     }
 
-    // UPDATE XP
-    fun updatePetXP(id: Int, xp: Int) {
+    // UPDATE COINS & PET STATS (skins & habitats)
+    fun buyShopItem(id: Int, shopItem: ShopItem) {
         viewModelScope.launch {
-            repository.updatePetXP(id, xp)
-            Log.d("PetViewModel", "Updated Pet $id with: $xp XP")
-        }
-    }
-
-    // UPDATE Coins
-    fun updatePetCoins(id: Int, coins: Int) {
-        viewModelScope.launch {
-            repository.updatePetCoins(id, coins)
-            Log.d("PetViewModel", "Updated Pet $id with: $coins Coins")
+            val currentStats = repository.getPetStats(id).firstOrNull()
+            currentStats?.let { stats ->
+                if (stats.coins >= shopItem.price) {
+                    val updatedCoins = stats.coins - shopItem.price
+                    val updatedStats = when (shopItem.type) {
+                        // Update the pet with ownedSkins or ownedHabitats
+                        "skin" -> stats.copy(
+                            coins = updatedCoins,
+                            skin = shopItem.tag,
+                            ownedSkins = stats.ownedSkins + shopItem.tag
+                        )
+                        "habitat" -> stats.copy(
+                            coins = updatedCoins,
+                            habitat = shopItem.tag,
+                            ownedHabitats = stats.ownedHabitats + shopItem.tag
+                        )
+                        else -> stats
+                    }
+                    repository.updatePetStats(updatedStats)
+                    Log.d("PetViewModel", "Bought ${shopItem.name} for ${shopItem.price} coins")
+                }
+            }
         }
     }
 }

@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onStart
 
 class PetStatsRepository(private val petStatsDao: PetStatsDao) {
-
     // READ
     fun getPetStats(id: Int = 1): Flow<PetStats> {
         return petStatsDao.getPetStats(id).onStart {
@@ -19,11 +18,16 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         }
     }
 
-    // UPDATE XP
+    // UPDATE
+    suspend fun updatePetStats(petStats: PetStats) {
+        petStatsDao.updatePetStats(petStats)
+    }
+
+    // UPDATE XP (for completing habits)
     suspend fun updatePetXP(id: Int, xp: Int) {
         val updatedPetStats = petStatsDao.getPetStats(id).firstOrNull()?.copy(xp = xp)
         updatedPetStats?.let {
-            petStatsDao.updatePetStats(it)  // pass the updated PetStats to DAO
+            petStatsDao.updatePetStats(it)
         }
         Log.d("PetStatsRepository", "Updated Pet $id - it now has $xp XP")
 
@@ -39,14 +43,15 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         }
     }
 
-    // UPDATE COINS
-    suspend fun updatePetCoins(id: Int, coins: Int) {
+    // UPDATE COINS (after habit completion)
+    suspend fun addCoins(id: Int, coins: Int) {
         val updatedPetStats = petStatsDao.getPetStats(id).firstOrNull()?.copy(coins = coins)
+        // add coins if a streakGoal (in HabitRepository) is reached
         updatedPetStats?.let {
             val coinsToAward = 50 // Adjust coin reward here :)
             it.coins += coinsToAward
 
-            petStatsDao.updatePetStats(it) // pass the updated PetStats to DAO
+            petStatsDao.updatePetStats(it)
             Log.d("PetStatsRepository", "Updated Coins - New Balance: ${updatedPetStats.coins} Coins")
         }
     }
