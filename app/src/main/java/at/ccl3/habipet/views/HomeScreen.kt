@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,20 +16,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HabitCompleteCard
 import at.ccl3.habipet.components.HabitListItem
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.viewmodels.HabitViewModel
+import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
+fun HomeScreen(navController: NavController, habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
     // collect list of habits from the HabitViewModel
-    val habits = viewModel.allHabits.collectAsState().value
+    val habits = habitViewModel.allHabits.collectAsState().value
 
     // Get the 3 most recent habits based on the highest streak
     val recentHabits = habits.sortedByDescending { it.streak }.take(3)
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // HEADER ROW
-        HeaderWithLogo(headingText = "Welcome to HabiPet!", navController = navController)
+        // HEADER ROW with COINS
+        TopHeaderBar(headingText = "HabiPet Home", navController = navController, petViewModel = petViewModel)
 
         // HOME SCREEN CONTENT
         LazyColumn(
@@ -41,7 +42,7 @@ fun HomeScreen(navController: NavController, viewModel: HabitViewModel) {
             }
             // Display habits to be completed with completion countdown
             items(habits) { habit ->
-                HabitCompleteCard(habit) { viewModel.completeHabit(habit) }
+                HabitCompleteCard(habit) { habitViewModel.completeHabit(habit) }
             }
 
             item { // RECENT HABITS SECTION

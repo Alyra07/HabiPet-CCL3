@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.R
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
@@ -27,8 +27,8 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // HEADER ROW
-        HeaderWithLogo(headingText = "Your HabiPet", navController = navController)
+        // HEADER ROW - include COINS DISPLAY
+        TopHeaderBar(headingText = "Your HabiPet", navController = navController, petViewModel = viewModel)
 
         // PET STATS DISPLAY
         Column(
@@ -61,20 +61,6 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            // COINS
-            Row {
-                Image(
-                    painter = painterResource(id = R.drawable.habi_coin),
-                    contentDescription = "Coins",
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Coins: ${petStats.coins}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }
         }
 
         Box( // BACKGROUND & PET IMAGE

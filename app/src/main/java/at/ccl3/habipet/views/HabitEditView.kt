@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.viewmodels.HabitViewModel
 
@@ -58,8 +58,8 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
     }
 
     Column (modifier = Modifier.fillMaxSize()){
-        // HEADER ROW with back button
-        HeaderWithLogo(headingText = "Edit Habit", navController = navController, showBackButton = true)
+        // HEADER ROW with BACK BUTTON
+        TopHeaderBar(headingText = "Edit Habit", navController = navController, showBackButton = true)
 
         // EDIT HABIT
         Column(
