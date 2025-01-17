@@ -12,7 +12,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
             // Emit default petStats if none exist in the database (Starter Pet)
             if (petStatsDao.getPetStats(id).firstOrNull() == null) {
                 petStatsDao.insertPetStats(
-                    PetStats(id = 1, name = "Whale", level = 1, xp = 0, skin = "default", habitat = "habitat_ocean", coins = 0)
+                    PetStats(id = 1, name = "Whale", level = 1, xp = 0, skin = "whale_default", habitat = "habitat_ocean", coins = 0)
                 )
             }
         }
@@ -31,7 +31,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         }
         Log.d("PetStatsRepository", "Updated Pet $id - it now has $xp XP")
 
-        // update pet level and reset if XP reaches 1000
+        // LEVEL UP and reset if XP reaches 1000
         if (xp >= 1000) {
             updatedPetStats?.let {
                 it.level++

@@ -27,6 +27,7 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
         // SKINS
         ShopItem(tag = "whale_sushi", name = "Sushi Skin", price = 10, type = "skin", imagePainter = R.drawable.habi_whale_sushi),
         ShopItem(tag = "whale_doom", name = "Skin of Doom", price = 20, type = "skin", imagePainter = R.drawable.habi_whale_doom),
+        ShopItem(tag = "puffy_default", name = "Puffy the Puffer", price = 20, type = "skin", imagePainter = R.drawable.habi_puffy),
         // HABITATS
         ShopItem(tag = "habitat_ocean", name = "Ocean Habitat", price = 100, type = "habitat", imagePainter = R.drawable.habitat_ocean),
         // More items... :)

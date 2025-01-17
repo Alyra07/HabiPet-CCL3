@@ -100,6 +100,7 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                         "whale_default" -> R.drawable.habi_whale
                         "whale_sushi" -> R.drawable.habi_whale_sushi
                         "whale_doom" -> R.drawable.habi_whale_doom
+                        "puffy_default" -> R.drawable.habi_puffy
                         else -> R.drawable.habi_whale
 
                     }),

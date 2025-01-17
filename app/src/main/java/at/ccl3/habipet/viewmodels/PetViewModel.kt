@@ -32,12 +32,16 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
                 if (stats.coins >= shopItem.price) {
                     val updatedCoins = stats.coins - shopItem.price
                     val updatedStats = when (shopItem.type) {
-                        // Update the pet with ownedSkins or ownedHabitats
+                        // Update the pet with ownedSkins
                         "skin" -> stats.copy(
+                            // Update pet name if it's Puffy the Puffer :)
+                            name = if (shopItem.tag.contains("puffy")) "Puffy the Puffer" else stats.name,
+                            ownedPets = if (shopItem.tag.contains("puffy")) stats.ownedPets + "puffy" else stats.ownedPets,
                             coins = updatedCoins,
                             skin = shopItem.tag,
                             ownedSkins = stats.ownedSkins + shopItem.tag
                         )
+                        // Update the user's ownedHabitats
                         "habitat" -> stats.copy(
                             coins = updatedCoins,
                             habitat = shopItem.tag,
@@ -45,8 +49,9 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
                         )
                         else -> stats
                     }
-                    repository.updatePetStats(updatedStats)
                     Log.d("PetViewModel", "Bought ${shopItem.name} for ${shopItem.price} coins")
+                    // Update the pet stats in the database
+                    repository.updatePetStats(updatedStats)
                 }
             }
         }
