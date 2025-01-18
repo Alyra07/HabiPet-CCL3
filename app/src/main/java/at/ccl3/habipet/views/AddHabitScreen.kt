@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.data.Habit
 import at.ccl3.habipet.viewmodels.HabitViewModel
@@ -34,8 +34,8 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
     var color by rememberSaveable { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // HEADER ROW
-        HeaderWithLogo(headingText = "Add New Habit", navController = navController)
+        // HEADER ROW without coins
+        TopHeaderBar(headingText = "Add New Habit", navController = navController)
 
         LazyColumn(
             modifier = Modifier.padding(horizontal = 16.dp),

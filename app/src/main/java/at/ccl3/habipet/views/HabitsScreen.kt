@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,19 +11,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HabitListItem
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.viewmodels.HabitViewModel
+import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
-fun HabitsScreen(navController: NavController, viewModel: HabitViewModel) {
+fun HabitsScreen(navController: NavController, habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
     // Collect the list of habits from the HabitViewModel
-    val habits = viewModel.allHabits.collectAsState().value
+    val habits = habitViewModel.allHabits.collectAsState().value
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        // HEADER ROW
-        HeaderWithLogo(headingText = "Habits", navController = navController)
+        // HEADER ROW WITH COINS
+        TopHeaderBar(headingText = "Habits", navController = navController, petViewModel = petViewModel)
 
         // HABIT LIST
         LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {

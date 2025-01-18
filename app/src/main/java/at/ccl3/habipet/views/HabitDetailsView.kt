@@ -1,4 +1,4 @@
-package at.ccl3.habipet.routes
+package at.ccl3.habipet.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.HabitCompleteCard
-import at.ccl3.habipet.components.HeaderWithLogo
+import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
@@ -29,8 +29,8 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
 
     Column(modifier = Modifier.fillMaxSize()) {
         if (habit != null) {
-            // HEADER ROW with back button
-            HeaderWithLogo(headingText = habit.name, navController = navController, showBackButton = true)
+            // HEADER ROW with BACK BUTTON
+            TopHeaderBar(headingText = habit.name, navController = navController, showBackButton = true)
 
             // DETAILS SECTION (needs work)
             LazyColumn(
