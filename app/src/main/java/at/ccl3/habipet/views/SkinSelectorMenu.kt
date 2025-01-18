@@ -61,10 +61,10 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
                             // Get the correct image resource from PetImageUtil based on skin tag
                             painter = painterResource(id = PetImageUtil.getSkinImageResource(skinTag)),
                             contentDescription = skinTag,
-                            modifier = Modifier.size(68.dp)
+                            modifier = Modifier.size(90.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = skinTag)
+                        Text(text = skinTag, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
             }
@@ -89,10 +89,10 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
                             // Get the correct image resource from PetImageUtil based on habitat chosen
                             painter = painterResource(id = PetImageUtil.getHabitatImageResource(habitatItem)),
                             contentDescription = habitatItem,
-                            modifier = Modifier.size(68.dp)
+                            modifier = Modifier.size(100.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = habitatItem)
+                        Text(text = habitatItem, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
             }

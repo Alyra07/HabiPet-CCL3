@@ -1,10 +1,14 @@
 package at.ccl3.habipet.views
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -23,34 +27,36 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
 
     // ALL SHOP ITEMS
     val shopItems = listOf(
-        // SKINS
         ShopItem(tag = "Sushi Wha-Lee", price = 10, type = "skin"),
         ShopItem(tag = "Wha-Lee of Doom", price = 20, type = "skin"),
         ShopItem(tag = "Puffy the Puffer", price = 20, type = "skin"),
         ShopItem(tag = "Puffy the Cactus", price = 20, type = "skin"),
         ShopItem(tag = "Poké Puff", price = 100, type = "skin"),
-        // HABITATS
         ShopItem(tag = "Blue Ocean", price = 100, type = "habitat"),
         // More items... :)
     )
+
+    // Filter shop items by type
+    val skinItems = shopItems.filter { it.type == "skin" }
+    val habitatItems = shopItems.filter { it.type == "habitat" }
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopHeaderBar(headingText = "Shop", navController = navController, petViewModel = petViewModel)
 
         LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-            items(shopItems) { item ->
-                // Check if item is owned or affordable
-                val isOwned = when (item.type) {
-                    "skin" -> petStats?.ownedSkins?.contains(item.tag) ?: false
-                    "habitat" -> petStats?.ownedHabitats?.contains(item.tag) ?: false
-                    else -> false
-                }
-                val isAffordable = when (item.type) {
-                    "skin" -> (petStats?.coins ?: 0) >= item.price
-                    "habitat" -> (petStats?.coins ?: 0) >= item.price
-                    else -> false
-                }
-                // Single ShopItemCard with buy button
+            // SKINS SECTION
+            item {
+                Text(
+                    text = "Habi Skins",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+            }
+            items(skinItems) { item ->
+                // Check if skin is owned and if it's affordable
+                val isOwned = petStats?.ownedSkins?.contains(item.tag) ?: false
+                val isAffordable = (petStats?.coins ?: 0) >= item.price
+                // Single skin Shop Item Card
                 ShopItemCard(
                     shopItem = item,
                     viewModel = petViewModel,
@@ -61,9 +67,40 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
                             }
                         }
                     },
-                    // disable buy button if item is already owned or not affordable
+                    // disable buy button if owned or not affordable
                     isBuyDisabled = isOwned || !isAffordable
                 )
+            }
+
+            // HABITATS SECTION
+            item {
+                Text(
+                    text = "Habitats",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+            }
+            items(habitatItems) { item ->
+                // Check if habitat is owned and if it's affordable
+                val isOwned = petStats?.ownedHabitats?.contains(item.tag) ?: false
+                val isAffordable = (petStats?.coins ?: 0) >= item.price
+                // Single habitat Shop Item Card
+                ShopItemCard(
+                    shopItem = item,
+                    viewModel = petViewModel,
+                    onBuyClick = { shopItem ->
+                        petStats?.let { stats ->
+                            if (isAffordable && !isOwned) {
+                                petViewModel.buyShopItem(stats.id, shopItem)
+                            }
+                        }
+                    },
+                    // disable buy button if owned or not affordable
+                    isBuyDisabled = isOwned || !isAffordable
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp)) // spacing bottom screen
             }
         }
     }

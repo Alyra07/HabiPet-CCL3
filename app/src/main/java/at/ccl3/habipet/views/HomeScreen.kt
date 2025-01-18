@@ -37,7 +37,7 @@ fun HomeScreen(navController: NavController, habitViewModel: HabitViewModel, pet
             modifier = Modifier.padding(horizontal = 16.dp),
         ) {
             item { // COMPLETE HABITS SECTION
-                Text(text = "Complete Habit", style = MaterialTheme.typography.headlineSmall)
+                Text(text = "Complete Habit", style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(8.dp))
             }
             // Display habits to be completed with completion countdown
@@ -47,7 +47,7 @@ fun HomeScreen(navController: NavController, habitViewModel: HabitViewModel, pet
 
             item { // RECENT HABITS SECTION
                 Text(
-                    text = "Recent Habits", style = MaterialTheme.typography.headlineSmall
+                    text = "Recent Habits", style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }

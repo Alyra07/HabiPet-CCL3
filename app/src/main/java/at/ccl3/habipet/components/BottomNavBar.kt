@@ -11,6 +11,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.filled.*
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import at.ccl3.habipet.R
 
@@ -52,6 +53,7 @@ fun BottomNavBar(navController: NavController) {
                             }
                         }
                     },
+                    // show icon label for all items except "add habit"
                     label = { if (!item.isSpecial) { Text(text = item.label) } },
                     selected = isSelected,
                     onClick = { navController.navigate(item.route) },
@@ -62,11 +64,13 @@ fun BottomNavBar(navController: NavController) {
     }
 }
 
+// icons for bottom nav bar
 sealed class BottomNavIcon {
-    data class DrawableResource(val id: Int) : BottomNavIcon()
-    data class ImageVectorIcon(val imageVector: androidx.compose.ui.graphics.vector.ImageVector) : BottomNavIcon()
+    data class DrawableResource(val id: Int) : BottomNavIcon() // icon from /res/drawable
+    data class ImageVectorIcon(val imageVector: ImageVector) : BottomNavIcon() // Material icons
 }
 
+// Single item in BottomNavBar
 data class BottomNavItem(
     val route: String,
     val label: String,
