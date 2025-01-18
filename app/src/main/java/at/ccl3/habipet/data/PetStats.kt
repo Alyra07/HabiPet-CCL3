@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey
 data class PetStats(
     @PrimaryKey val id: Int,
     var name: String,
-    val ownedPets: List<String> = listOf("whale"),
     var level: Int,
     var xp: Int, // needed to level up
-    val skin: String, // current pet skin chosen
-    val ownedSkins: List<String> = listOf("whale_default"), // owned shop items
-    val habitat: String, // current PetScreen background
-    val ownedHabitats: List<String> = listOf("habitat_ocean"), // choose habitat
-    var coins: Int // currency to use in shop
+    val skin: String = "Wha-Lee Default", // current pet skin chosen
+    val habitat: String = "Blue Ocean", // current PetScreen background
+
+    var coins: Int, // currency to use in shop
+    val ownedSkins: List<String> = listOf("Wha-Lee Default"), // owned shop items
+    val ownedHabitats: List<String> = listOf("Blue Ocean"), // choose habitat
 )

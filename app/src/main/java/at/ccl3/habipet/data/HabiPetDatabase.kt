@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import at.ccl3.habipet.util.Converters
 
-@Database(entities = [Habit::class, PetStats::class], version = 3, exportSchema = false)
+@Database(entities = [Habit::class, PetStats::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class) // register TypeConverters util
 abstract class HabiPetDatabase : RoomDatabase() {
     abstract fun habitDao(): HabitDao // for habit related CRUD operations

@@ -28,6 +28,7 @@ import at.ccl3.habipet.views.ShopScreen
 import at.ccl3.habipet.viewmodels.HabitViewModelFactory
 import at.ccl3.habipet.viewmodels.PetViewModel
 import at.ccl3.habipet.viewmodels.PetViewModelFactory
+import at.ccl3.habipet.views.SkinSelectorMenu
 
 class MainActivity : ComponentActivity() {
     // Initialize HabitViewModel
@@ -76,6 +77,8 @@ fun HabiPetApp(habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
             composable("add_habit") { AddHabitScreen(navController, habitViewModel) }
             composable("habits") { HabitsScreen(navController, habitViewModel, petViewModel) }
             composable("shop") { ShopScreen(navController, petViewModel) }
+            // SkinSelectorMenu (from PetScreen)
+            composable("skin_selector_menu") { SkinSelectorMenu(navController, petViewModel) }
             // HabitDetailsView with habitId when clicking on HabitListItem
             composable("habitDetails/{habitId}") { backStackEntry ->
                 val habitId = backStackEntry.arguments?.getString("habitId")?.toInt() ?: 0

@@ -10,13 +10,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.R
 import at.ccl3.habipet.components.ShopItemCard
 import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 // SINGLE SHOP ITEM
-data class ShopItem(val tag: String, val name: String, val price: Int, val type: String, val imagePainter: Int)
+data class ShopItem(val tag: String, val price: Int, val type: String)
 
 @Composable
 fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
@@ -25,11 +24,13 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
     // ALL SHOP ITEMS
     val shopItems = listOf(
         // SKINS
-        ShopItem(tag = "whale_sushi", name = "Sushi Skin", price = 10, type = "skin", imagePainter = R.drawable.habi_whale_sushi),
-        ShopItem(tag = "whale_doom", name = "Skin of Doom", price = 20, type = "skin", imagePainter = R.drawable.habi_whale_doom),
-        ShopItem(tag = "puffy_default", name = "Puffy the Puffer", price = 20, type = "skin", imagePainter = R.drawable.habi_puffy),
+        ShopItem(tag = "Sushi Wha-Lee", price = 10, type = "skin"),
+        ShopItem(tag = "Wha-Lee of Doom", price = 20, type = "skin"),
+        ShopItem(tag = "Puffy the Puffer", price = 20, type = "skin"),
+        ShopItem(tag = "Puffy the Cactus", price = 20, type = "skin"),
+        ShopItem(tag = "Poké Puff", price = 100, type = "skin"),
         // HABITATS
-        ShopItem(tag = "habitat_ocean", name = "Ocean Habitat", price = 100, type = "habitat", imagePainter = R.drawable.habitat_ocean),
+        ShopItem(tag = "Blue Ocean", price = 100, type = "habitat"),
         // More items... :)
     )
 
@@ -49,17 +50,17 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
                     "habitat" -> (petStats?.coins ?: 0) >= item.price
                     else -> false
                 }
-                // Single ShopItemCard
+                // Single ShopItemCard with buy button
                 ShopItemCard(
                     shopItem = item,
+                    viewModel = petViewModel,
                     onBuyClick = { shopItem ->
                         petStats?.let { stats ->
-                            if (stats.coins >= shopItem.price && !isOwned) {
+                            if (isAffordable && !isOwned) {
                                 petViewModel.buyShopItem(stats.id, shopItem)
                             }
                         }
                     },
-                    painter = item.imagePainter,
                     // disable buy button if item is already owned or not affordable
                     isBuyDisabled = isOwned || !isAffordable
                 )

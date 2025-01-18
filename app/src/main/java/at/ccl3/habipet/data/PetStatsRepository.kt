@@ -12,7 +12,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
             // Emit default petStats if none exist in the database (Starter Pet)
             if (petStatsDao.getPetStats(id).firstOrNull() == null) {
                 petStatsDao.insertPetStats(
-                    PetStats(id = 1, name = "Whale", level = 1, xp = 0, skin = "whale_default", habitat = "habitat_ocean", coins = 0)
+                    PetStats(id = 1, name = "Wha-Lee", level = 1, xp = 0, coins = 0)
                 )
             }
         }
@@ -21,6 +21,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
     // UPDATE
     suspend fun updatePetStats(petStats: PetStats) {
         petStatsDao.updatePetStats(petStats)
+        Log.d("PetStatsRepository", "Updated Pet Stats: $petStats")
     }
 
     // UPDATE XP (for completing habits)
@@ -53,6 +54,28 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
 
             petStatsDao.updatePetStats(it)
             Log.d("PetStatsRepository", "Updated Coins - New Balance: ${updatedPetStats.coins} Coins")
+        }
+    }
+
+    // UPDATE SKIN
+    suspend fun updatePetSkin(id: Int, newSkin: String) {
+        val currentStats = petStatsDao.getPetStats(id).firstOrNull()
+        currentStats?.let {
+            val updatedStats = it.copy(
+                // rename the pet if it's a Puffy skin
+                name = if (newSkin.contains("Default")) "Wha-Lee" else newSkin,
+                skin = newSkin // set new skin
+            )
+            petStatsDao.updatePetStats(updatedStats)
+        }
+    }
+
+    // UPDATE HABITAT
+    suspend fun updatePetHabitat(id: Int, newHabitat: String) {
+        val currentStats = petStatsDao.getPetStats(id).firstOrNull()
+        currentStats?.let {
+            val updatedStats = it.copy(habitat = newHabitat)
+            petStatsDao.updatePetStats(updatedStats) // set new habitat
         }
     }
 }

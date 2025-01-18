@@ -11,8 +11,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.R
 import at.ccl3.habipet.components.TopHeaderBar
+import at.ccl3.habipet.util.PetImageUtil
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
@@ -26,89 +26,58 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
         return
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize(),) {
         // HEADER ROW - include COINS DISPLAY
         TopHeaderBar(
-            headingText = "Your HabiPet",
+            headingText = "Your Habi",
             navController = navController,
             petViewModel = viewModel
         )
 
-        // PET STATS DISPLAY
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            // PET STATS SECTION
-            Text(
-                text = "Pet Name: ${petStats.name}",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
 
+        ) {
+            // HABI NAME
             Text(
-                text = "Pet Stats:", style = MaterialTheme.typography.titleMedium
-            )
-            Text(
-                text = "Level: ${petStats.level}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = "XP: ${petStats.xp}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = "Skin: ${petStats.skin}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = "Owned Skins: ${petStats.ownedSkins.joinToString(", ")}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = "Habitat: ${petStats.habitat}",
-                style = MaterialTheme.typography.bodyLarge,
+                text = petStats.name,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+            // PET STATS SECTION
+            Text(text = "Level: ${petStats.level}", style = MaterialTheme.typography.bodyLarge)
+            Text(text = "XP: ${petStats.xp}", style = MaterialTheme.typography.bodyLarge)
         }
 
-        Box( // BACKGROUND & PET IMAGE
-            modifier = Modifier
-                .fillMaxSize()
+        // HABIPET IMAGE WITH BACKGROUND DISPLAY
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Image( // Set background image (habitat)
-                painter = painterResource(
-                    // Set background image based on habitat chosen
-                    id = when (petStats.habitat) {
-                        "habitat_ocean" -> R.drawable.habitat_ocean
-//                        "habitat_forest" -> R.drawable.habitat_forest
-//                        "habitat_desert" -> R.drawable.habitat_desert
-                        else -> R.drawable.habitat_ocean
-                    }
-                ),
+            Image( // Habitat background image
+                painter = painterResource(id = PetImageUtil.getHabitatImageResource(petStats.habitat)),
                 contentDescription = "Habitat Background",
-                modifier = Modifier.fillMaxSize(), // image covers the full Box
-                contentScale = ContentScale.FillBounds, // scales image to fill the Box
-                alpha = 0.9f // background transparency
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds,
+                alpha = 0.9f
             )
-
-            Image( // Pet image on top of background (animation later!!)
-                painter = painterResource(
-                    // Set pet image based on skin chosen
-                    id = when (petStats.skin) {
-                        "whale_default" -> R.drawable.habi_whale
-                        "whale_sushi" -> R.drawable.habi_whale_sushi
-                        "whale_doom" -> R.drawable.habi_whale_doom
-                        "puffy_default" -> R.drawable.habi_puffy
-                        else -> R.drawable.habi_whale
-
-                    }),
+            Image( // Pet image
+                painter = painterResource(id = PetImageUtil.getSkinImageResource(petStats.skin)),
                 contentDescription = "Pet Image",
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size(300.dp)
             )
+            // CUSTOMIZE BUTTON
+            Button(
+                onClick = { navController.navigate("skin_selector_menu") },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.BottomCenter)
+            ) {
+                Text(text = "Customize")
+            }
         }
     }
 }

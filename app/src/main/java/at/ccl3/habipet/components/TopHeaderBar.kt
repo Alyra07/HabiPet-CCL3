@@ -66,7 +66,7 @@ fun TopHeaderBar(
         if (petStats != null) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.habi_coin),
+                    painter = painterResource(id = R.drawable.coin_icon),
                     contentDescription = "Coins",
                     modifier = Modifier.size(24.dp)
                 )

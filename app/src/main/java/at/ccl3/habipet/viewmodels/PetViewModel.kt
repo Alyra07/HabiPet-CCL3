@@ -25,6 +25,18 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
     }
 
     // UPDATE COINS & PET STATS (skins & habitats)
+    fun updatePetSkin(id: Int, newSkin: String) {
+        viewModelScope.launch {
+            repository.updatePetSkin(id, newSkin)
+        }
+    }
+    fun updatePetHabitat(id: Int, newHabitat: String) {
+        viewModelScope.launch {
+            repository.updatePetHabitat(id, newHabitat)
+        }
+    }
+
+    // BUY SHOP ITEM
     fun buyShopItem(id: Int, shopItem: ShopItem) {
         viewModelScope.launch {
             val currentStats = repository.getPetStats(id).firstOrNull()
@@ -34,9 +46,7 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
                     val updatedStats = when (shopItem.type) {
                         // Update the pet with ownedSkins
                         "skin" -> stats.copy(
-                            // Update pet name if it's Puffy the Puffer :)
-                            name = if (shopItem.tag.contains("puffy")) "Puffy the Puffer" else stats.name,
-                            ownedPets = if (shopItem.tag.contains("puffy")) stats.ownedPets + "puffy" else stats.ownedPets,
+                            name = shopItem.tag, // Update the pet's name to the new skin
                             coins = updatedCoins,
                             skin = shopItem.tag,
                             ownedSkins = stats.ownedSkins + shopItem.tag
@@ -49,7 +59,7 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
                         )
                         else -> stats
                     }
-                    Log.d("PetViewModel", "Bought ${shopItem.name} for ${shopItem.price} coins")
+                    Log.d("PetViewModel", "Bought ${shopItem.tag} for ${shopItem.price} coins")
                     // Update the pet stats in the database
                     repository.updatePetStats(updatedStats)
                 }
