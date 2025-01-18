@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -53,9 +54,11 @@ fun TopHeaderBar(
             } else {
                 // LOGO (on most screens)
                 Image(
-                    painter = painterResource(id = R.drawable.logo_notext),
+                    painter = painterResource(id = R.drawable.logo_vector),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier.size(50.dp),
+                    contentScale = ContentScale.Fit,
+                    alpha = 0.9f
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import at.ccl3.habipet.R
@@ -38,7 +39,7 @@ fun ShopItemCard(
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Row(
             modifier = Modifier
@@ -70,7 +71,8 @@ fun ShopItemCard(
                     Image( // coin icon
                         painter = painterResource(id = R.drawable.coin_icon),
                         contentDescription = "Coins",
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(24.dp),
+                        contentScale = ContentScale.Fit
                     )
                 }
             }

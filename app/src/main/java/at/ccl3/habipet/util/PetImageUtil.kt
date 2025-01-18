@@ -22,7 +22,7 @@ object PetImageUtil {
     fun getHabitatImageResource(habitat: String): Int {
         return when (habitat) {
             "Blue Ocean" -> R.drawable.habitat_ocean
-//            "habitat_forest" -> R.drawable.habitat_forest
+            "Cozy Room" -> R.drawable.habitat_room
 //            "habitat_desert" -> R.drawable.habitat_desert
             else -> R.drawable.habitat_ocean
         }
