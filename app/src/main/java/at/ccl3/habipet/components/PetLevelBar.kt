@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
@@ -23,36 +25,41 @@ fun PetLevelBar(petStats: PetStats) {
     val currentLevel = petStats.level
     // val nextLevel = currentLevel + 1
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
-        Text( // Pet name
-            text = petStats.name,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        LinearProgressIndicator(
-            // XP Progress bar
-            progress = { progress },
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(16.dp),
-            color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.surface,
-            strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
-            gapSize = 0.dp,
-        )
-        Row( // Current Level & XP display
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(horizontal = 32.dp, vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Level $currentLevel")
-            Text(text = "${petStats.xp}/1000 XP")
+            Text( // Pet name
+                text = petStats.name,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            LinearProgressIndicator(
+                // XP Progress bar
+                progress = { progress },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(16.dp),
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.background,
+                strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
+                gapSize = 0.dp,
+            )
+            Row( // Current Level & XP display
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Level $currentLevel", style = MaterialTheme.typography.titleMedium)
+                Text(text = "${petStats.xp}/1000 XP", style = MaterialTheme.typography.bodyLarge)
+            }
         }
     }
 }

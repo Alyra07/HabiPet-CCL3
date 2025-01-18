@@ -41,7 +41,7 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                Text(text = "Select a Skin", style = MaterialTheme.typography.titleMedium)
+                Text(text = "Select Skin", style = MaterialTheme.typography.titleMedium)
             }
             item { // LIST OF OWNED SKINS
                 petStats.ownedSkins.forEach { skinTag ->
@@ -69,7 +69,8 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
                 }
             }
             item {
-                Text(text = "Select a Habitat", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Select Habitat", style = MaterialTheme.typography.titleMedium)
             }
             item { // LIST OF OWNED HABITATS
                 petStats.ownedHabitats.forEach { habitatItem ->

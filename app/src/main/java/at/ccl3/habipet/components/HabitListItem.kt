@@ -34,5 +34,4 @@ fun HabitListItem(habit: Habit, onClick: () -> Unit) {
             Text(text = "Repetition: ${habit.repetition}", style = MaterialTheme.typography.bodyMedium)
         }
     }
-    Spacer(modifier = Modifier.height(16.dp))
 }

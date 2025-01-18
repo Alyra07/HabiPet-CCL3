@@ -9,10 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import at.ccl3.habipet.R
-import at.ccl3.habipet.ui.theme.DarkPurple
 
 // Single item in BottomNavBar
 data class BottomNavItem(
@@ -26,6 +24,7 @@ data class BottomNavItem(
 @Composable
 fun BottomNavBar(navController: NavController) {
     val items = listOf(
+        // ROUTES
         BottomNavItem(
             route = "home",
             label = "Home",
@@ -60,9 +59,9 @@ fun BottomNavBar(navController: NavController) {
     )
 
     BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        contentColor = MaterialTheme.colorScheme.primary,
+        containerColor = MaterialTheme.colorScheme.surfaceContainer // NavBar color
     ) {
+        // NAVIGATION ITEMS
         NavigationBar {
             val currentDestination by navController.currentBackStackEntryAsState()
             items.forEach { item ->
@@ -77,14 +76,21 @@ fun BottomNavBar(navController: NavController) {
                                 Icon(
                                     painter = painterResource(id = icon),
                                     contentDescription = item.label,
-                                    modifier = if (item.isSpecial) Modifier.size(34.dp) else Modifier.size(24.dp),
-                                    tint = if (isSelected) DarkPurple else Color.DarkGray
+                                    modifier = if (item.isSpecial) Modifier.size(34.dp) else Modifier.size(
+                                        24.dp
+                                    ),
+                                    tint = if (isSelected) MaterialTheme.colorScheme.onSecondary
+                                    else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
                     },
                     // show icon label for all items except "add habit"
-                    label = { if (!item.isSpecial) { Text(text = item.label) } },
+                    label = {
+                        if (!item.isSpecial) {
+                            Text(text = item.label)
+                        }
+                    },
                     selected = isSelected,
                     onClick = { navController.navigate(item.route) },
                     modifier = Modifier.padding(4.dp)

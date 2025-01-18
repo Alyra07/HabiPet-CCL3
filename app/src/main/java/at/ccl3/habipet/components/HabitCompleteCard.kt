@@ -22,7 +22,12 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
         "Daily" -> Triple(timeSinceLastCompletion.toFloat() / 86_400_000, 7, 86_400_000)
         "Weekly" -> Triple(timeSinceLastCompletion.toFloat() / 604_800_000, 4, 604_800_000)
         "Monthly" -> Triple(timeSinceLastCompletion.toFloat() / 2_592_000_000, 2, 2_592_000_000)
-        "Test" -> Triple(timeSinceLastCompletion.toFloat() / oneMinuteInMillis, 2, oneMinuteInMillis)
+        "Test" -> Triple(
+            timeSinceLastCompletion.toFloat() / oneMinuteInMillis,
+            2,
+            oneMinuteInMillis
+        )
+
         else -> Triple(0f, 1, 1)
     }.let { Triple(it.first.coerceIn(0f, 1f), it.second, it.third) }
 
@@ -31,57 +36,80 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
     val streakText = "${habit.streak % streakGoal}/$streakGoal"
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxSize(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiary,
             contentColor = MaterialTheme.colorScheme.onTertiary
         )
     ) {
-        Column(
+        Column( // general Card content
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(text = habit.name, style = MaterialTheme.typography.bodyLarge)
+            // HABIT NAME & DESCRIPTION
+            Text(text = habit.name, style = MaterialTheme.typography.titleLarge)
+            Text(text = habit.description, style = MaterialTheme.typography.bodyLarge)
+            Spacer(modifier = Modifier.height(8.dp))
 
             // STREAK PROGRESS BAR
             LinearProgressIndicator(
                 progress = { streakProgress },
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Text(text = "Streak: $streakText", style = MaterialTheme.typography.bodySmall)
-
-            // TIME PROGRESS TEXT
-            Text(
-                text = if (timeProgress < 1f) {
-                    val remainingTimeMillis = (1f - timeProgress) * durationMillis.toFloat()
-                    val remainingMinutes = (remainingTimeMillis / oneMinuteInMillis).toInt()
-                    "Ready in ${remainingMinutes / 60} hours ${remainingMinutes % 60} minutes"
-                } else {
-                    "Ready to complete!"
-                },
-                style = MaterialTheme.typography.bodySmall
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.background,
+                modifier = Modifier
+                    .height(8.dp)
+                    .fillMaxWidth(),
+                gapSize = 0.dp
             )
 
-            // COMPLETE BUTTON
-            IconButton(
-                onClick = {
-                    if (timeProgress >= 1f) {
-                        onComplete() // Call onComplete function provided by the screen
-                    }
-                },
-                enabled = timeProgress >= 1f
+            Row( // other content
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Icon(
-                    Icons.Default.Check,
-                    contentDescription = "Complete Habit",
-                    tint = if (timeProgress >= 1f) MaterialTheme.colorScheme.primary else SmokeyGray
-                )
+                Row( // TIME PROGRESS & BUTTON
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // COMPLETE BUTTON
+                    IconButton(
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.background,
+                        ),
+                        onClick = {
+                            if (timeProgress >= 1f) {
+                                onComplete() // Call onComplete function provided by the screen
+                            }
+                        },
+                        enabled = timeProgress >= 1f
+                    ) {
+                        Icon(
+                            Icons.Default.Check,
+                            contentDescription = "Complete Habit",
+                            tint = if (timeProgress >= 1f) MaterialTheme.colorScheme.primary else SmokeyGray
+                        )
+                    }
+
+                    // TIME PROGRESS TEXT
+                    Text(
+                        text = if (timeProgress < 1f) {
+                            val remainingTimeMillis = (1f - timeProgress) * durationMillis.toFloat()
+                            val remainingMinutes = (remainingTimeMillis / oneMinuteInMillis).toInt()
+                            "Ready in ${remainingMinutes / 60} hours ${remainingMinutes % 60} minutes"
+                        } else {
+                            "Ready to complete!"
+                        },
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                // STREAK PROGRESS TEXT (below progress bar)
+                Text(text = "Streak: $streakText", style = MaterialTheme.typography.bodySmall)
             }
         }
     }
-    Spacer(modifier = Modifier.height(16.dp))
 }

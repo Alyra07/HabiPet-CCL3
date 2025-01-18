@@ -21,7 +21,7 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
     val petStats = viewModel.petStats.collectAsState(initial = null).value
 
     if (petStats == null) {
-        Text(text = "No pet stats found yet...", modifier = Modifier.padding(16.dp))
+        Text(text = "ERROR: No pet stats found...", modifier = Modifier.padding(16.dp))
         return
     }
 
@@ -35,8 +35,7 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
 
         Column( // PET STATS
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // PetLevelBar shows xp & level progress

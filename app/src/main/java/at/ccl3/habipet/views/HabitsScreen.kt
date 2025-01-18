@@ -1,5 +1,6 @@
 package at.ccl3.habipet.views
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -27,7 +28,10 @@ fun HabitsScreen(navController: NavController, habitViewModel: HabitViewModel, p
         TopHeaderBar(headingText = "Habits", navController = navController, petViewModel = petViewModel)
 
         // HABIT LIST
-        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+        LazyColumn(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
             // Display all habits from HabitViewModel
             items(habits) { habit ->
                 HabitListItem(habit = habit) {

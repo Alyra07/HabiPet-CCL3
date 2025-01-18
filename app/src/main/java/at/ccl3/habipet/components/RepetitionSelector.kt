@@ -25,7 +25,8 @@ fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
                     contentColor = if (currentRepetition == option) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
-                )
+                ),
+                border = ButtonDefaults.outlinedButtonBorder(enabled = currentRepetition == option),
             ) {
                 Text(option)
             }

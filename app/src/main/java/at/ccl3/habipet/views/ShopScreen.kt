@@ -1,5 +1,6 @@
 package at.ccl3.habipet.views
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,13 +46,16 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopHeaderBar(headingText = "Shop", navController = navController, petViewModel = petViewModel)
 
-        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+        LazyColumn(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             // SKINS SECTION
             item {
                 Text(
                     text = "Habi Skins",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
             items(skinItems) { item ->
@@ -79,7 +83,7 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
                 Text(
                     text = "Habitats",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(vertical = 16.dp)
+                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                 )
             }
             items(habitatItems) { item ->
