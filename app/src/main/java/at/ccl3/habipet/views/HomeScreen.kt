@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.*
@@ -56,6 +56,12 @@ fun HomeScreen(
                     // call habitViewModel.completeHabit() when the habit is completed
                     HabitCompleteCard(habit) { habitViewModel.completeHabit(habit) }
                 }
+            }
+
+            // HABIT COMPLETION CALENDAR
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                HabitCalendar(habits = habits)
             }
 
             // RECENT HABITS

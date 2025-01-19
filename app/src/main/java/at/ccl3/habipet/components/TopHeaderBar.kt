@@ -45,11 +45,10 @@ fun TopHeaderBar(
             } else {
                 // LOGO (on most screens)
                 Image(
-                    painter = painterResource(id = R.drawable.logo_vector),
+                    painter = painterResource(id = R.drawable.logo_icon),
                     contentDescription = null,
                     modifier = Modifier.size(50.dp),
-                    contentScale = ContentScale.Fit,
-                    alpha = 0.9f
+                    contentScale = ContentScale.Fit
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -58,16 +57,19 @@ fun TopHeaderBar(
 
         // COINS DISPLAY
         if (petStats != null) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = "${petStats.coins}",
                     style = MaterialTheme.typography.bodyLarge
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Image(
+                Image( // coin icon
                     painter = painterResource(id = R.drawable.coin_icon),
                     contentDescription = "Coins",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    contentScale = ContentScale.Fit
                 )
             }
         }
