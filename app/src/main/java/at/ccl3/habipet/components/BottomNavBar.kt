@@ -2,8 +2,7 @@ package at.ccl3.habipet.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -60,8 +59,9 @@ fun BottomNavBar(navController: NavController) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.surfaceContainer // NavBar color
     ) {
-        // NAVIGATION ITEMS
-        NavigationBar {
+        NavigationBar ( // NAVIGATION ITEMS
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        ) {
             val currentDestination by navController.currentBackStackEntryAsState()
             items.forEach { item ->
                 val isSelected = currentDestination?.destination?.route == item.route
@@ -70,9 +70,8 @@ fun BottomNavBar(navController: NavController) {
                     icon = {
                         // check if icon is filled or outlined (isSelected)
                         when (val icon = if (isSelected) item.filledIcon else item.outlinedIcon) {
-                            // Icons from /res/drawable
                             (icon) -> {
-                                Icon(
+                                Icon( // Icons from /res/drawable
                                     painter = painterResource(id = icon),
                                     contentDescription = item.label,
                                     modifier = if (item.isSpecial) Modifier.size(34.dp) else Modifier.size(
@@ -92,7 +91,6 @@ fun BottomNavBar(navController: NavController) {
                     },
                     selected = isSelected,
                     onClick = { navController.navigate(item.route) },
-                    modifier = Modifier.padding(4.dp)
                 )
             }
         }

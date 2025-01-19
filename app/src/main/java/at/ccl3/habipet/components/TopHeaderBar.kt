@@ -59,15 +59,15 @@ fun TopHeaderBar(
         // COINS DISPLAY
         if (petStats != null) {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "${petStats.coins}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.width(4.dp))
                 Image(
                     painter = painterResource(id = R.drawable.coin_icon),
                     contentDescription = "Coins",
                     modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "${petStats.coins}",
-                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

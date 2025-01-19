@@ -8,9 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import at.ccl3.habipet.components.HabitCompleteCard
-import at.ccl3.habipet.components.HabitListItem
-import at.ccl3.habipet.components.TopHeaderBar
+import at.ccl3.habipet.components.*
+import at.ccl3.habipet.util.HabitUtils
 import at.ccl3.habipet.viewmodels.HabitViewModel
 import at.ccl3.habipet.viewmodels.PetViewModel
 
@@ -27,14 +26,8 @@ fun HomeScreen(
         .minByOrNull { habit ->
             val currentTime = System.currentTimeMillis()
             val timeSinceLastCompletion = currentTime - habit.lastCompleted
-            val oneMinuteInMillis = 60_000L // Long representation of 60 seconds
-            val durationMillis = when (habit.repetition) {
-                "Daily" -> 86_400_000L
-                "Weekly" -> 604_800_000L
-                "Monthly" -> 2_592_000_000L
-                "Test" -> oneMinuteInMillis
-                else -> Long.MAX_VALUE
-            }
+            val durationMillis = HabitUtils.getDurationMillis(habit.repetition)
+
             durationMillis - timeSinceLastCompletion
         }
 
