@@ -1,6 +1,6 @@
 package at.ccl3.habipet.views
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.PetLevelBar
 import at.ccl3.habipet.components.TopHeaderBar
+import at.ccl3.habipet.ui.theme.SmokeyGray
 import at.ccl3.habipet.util.PetImageUtil
 import at.ccl3.habipet.viewmodels.PetViewModel
 
@@ -32,9 +33,7 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
         )
 
         Column( // PET STATS
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
         ) {
             // PetLevelBar shows xp & level progress
             PetLevelBar(petStats)
@@ -47,7 +46,7 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                 painter = painterResource(id = PetImageUtil.getHabitatImageResource(petStats.habitat)),
                 contentDescription = "Habitat Background",
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds, // habitat background fills the screen
+                contentScale = ContentScale.FillWidth, // background bounds
                 alpha = 0.9f
             )
             // PET IMAGE
@@ -56,15 +55,17 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                 painter = painterResource(id = PetImageUtil.getSkinImageResource(petStats.skin)),
                 contentDescription = "Pet Image",
                 modifier = Modifier
-                    .align(Alignment.Center) // center of the screen
-                    .size(350.dp)
+                    .align(Alignment.Center) // center of habitat
+                    .size(400.dp)
+                    .padding(top = 90.dp) // offset
             )
             // CUSTOMIZE BUTTON
             Button(
                 onClick = { navController.navigate("skin_selector_menu") },
                 modifier = Modifier
                     .padding(16.dp)
-                    .align(Alignment.BottomCenter)
+                    .align(Alignment.BottomCenter),
+                border = BorderStroke(1.dp, color = SmokeyGray)
             ) {
                 Text(text = "Customize")
             }
