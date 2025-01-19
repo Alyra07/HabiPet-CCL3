@@ -36,7 +36,7 @@ class PetViewModel(private val repository: PetStatsRepository) : ViewModel() {
         }
     }
 
-    // BUY SHOP ITEM
+    // BUY SHOP ITEM (skins & habitats)
     fun buyShopItem(id: Int, shopItem: ShopItem) {
         viewModelScope.launch {
             val currentStats = repository.getPetStats(id).firstOrNull()

@@ -1,7 +1,6 @@
 package at.ccl3.habipet.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,7 +24,8 @@ fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
                     contentColor = if (currentRepetition == option) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
-                )
+                ),
+                border = ButtonDefaults.outlinedButtonBorder(enabled = currentRepetition == option),
             ) {
                 Text(option)
             }

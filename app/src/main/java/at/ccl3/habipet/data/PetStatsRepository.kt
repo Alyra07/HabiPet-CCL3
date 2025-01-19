@@ -44,14 +44,10 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         }
     }
 
-    // UPDATE COINS (after habit completion)
+    // UPDATE COINS if a streakGoal (in HabitRepository) is reached
     suspend fun addCoins(id: Int, coins: Int) {
         val updatedPetStats = petStatsDao.getPetStats(id).firstOrNull()?.copy(coins = coins)
-        // add coins if a streakGoal (in HabitRepository) is reached
         updatedPetStats?.let {
-            val coinsToAward = 50 // Adjust coin reward here :)
-            it.coins += coinsToAward
-
             petStatsDao.updatePetStats(it)
             Log.d("PetStatsRepository", "Updated Coins - New Balance: ${updatedPetStats.coins} Coins")
         }

@@ -1,23 +1,15 @@
 package at.ccl3.habipet.components
 
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import at.ccl3.habipet.R
 import at.ccl3.habipet.util.PetImageUtil
 import at.ccl3.habipet.viewmodels.PetViewModel
 import at.ccl3.habipet.views.ShopItem
@@ -33,9 +25,8 @@ fun ShopItemCard(
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Row(
             modifier = Modifier
@@ -58,15 +49,30 @@ fun ShopItemCard(
                     contentDescription = "Shop Item ${shopItem.tag}",
                     modifier = Modifier.size(100.dp)
                 )
+
                 // ITEM NAME & PRICE
                 Text(text = shopItem.tag, style = MaterialTheme.typography.titleLarge)
-                Text(text = "Price: ${shopItem.price} coins", style = MaterialTheme.typography.bodyLarge)
+                Row (verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "Price: ${shopItem.price}", style = MaterialTheme.typography.bodyLarge)
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    Image( // coin icon
+                        painter = painterResource(id = R.drawable.coin_icon),
+                        contentDescription = "Coins",
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
             }
 
             // BUY BUTTON
             Button(
-                onClick = { onBuyClick(shopItem) },
+                onClick = { onBuyClick(shopItem) }, // callback to buy the item
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ),
                 // Disable the button if you don't have enough coins or item is already owned
+                border = ButtonDefaults.outlinedButtonBorder(enabled = !isBuyDisabled),
                 enabled = !isBuyDisabled,
             ) {
                 if (petStats != null) {

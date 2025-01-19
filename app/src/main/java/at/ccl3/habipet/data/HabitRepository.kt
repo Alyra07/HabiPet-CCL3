@@ -1,6 +1,7 @@
 package at.ccl3.habipet.data
 
 import android.util.Log
+import at.ccl3.habipet.util.HabitUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
@@ -31,17 +32,15 @@ class HabitRepository(
     // Complete habit after countdown and update the habit & petStats states
     suspend fun completeHabit(habit: Habit) {
         val currentPetStats = petStatsRepository.getPetStats().first()
-
         val currentTime = System.currentTimeMillis()
         val oneMinuteInMillis = 60 * 1000
 
-        // Define streak goal based on habit repetition
-        val streakGoal = when (habit.repetition) {
-            "Daily" -> 7
-            "Weekly" -> 4
-            "Monthly" -> 2
-            else -> 2 // "Test" case
-        }
+        // Define streak goal based on habit repetition to award coins
+        val streakGoal = HabitUtils.getStreakGoal(habit.repetition)
+        // Define XP to award based on habit repetition
+        val xpToAward = HabitUtils.getXpToAward(habit.repetition)
+        // Define coins to award based on habit repetition
+        val coinsToAward = HabitUtils.getCoinsToAward(habit.repetition)
 
         if (currentTime - habit.lastCompleted >= oneMinuteInMillis) {
             // Habit can be completed
@@ -55,11 +54,11 @@ class HabitRepository(
             )
             habitDao.update(updatedHabit)
             // Award XP for habit completion
-            petStatsRepository.updatePetXP(currentPetStats.id, currentPetStats.xp + 100)
+            petStatsRepository.updatePetXP(currentPetStats.id, currentPetStats.xp + xpToAward)
 
             // Check if streak goal is met before awarding extra COINS
             if (updatedHabit.streak == 0 && habit.streak + 1 >= streakGoal) {
-                petStatsRepository.addCoins(currentPetStats.id, currentPetStats.coins)
+                petStatsRepository.addCoins(currentPetStats.id, currentPetStats.coins + coinsToAward)
             }
 
             Log.d("HabitRepository", "Habit completed: $updatedHabit , new time completed: $currentTime")

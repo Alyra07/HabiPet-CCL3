@@ -5,11 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -19,7 +16,7 @@ import at.ccl3.habipet.viewmodels.PetViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
+fun CustomizePetScreen(navController: NavController, viewModel: PetViewModel) {
     val petStats = viewModel.petStats.collectAsState(initial = null).value
     val coroutineScope = rememberCoroutineScope()
 
@@ -41,7 +38,7 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                Text(text = "Select a Skin", style = MaterialTheme.typography.titleMedium)
+                Text(text = "Select Skin", style = MaterialTheme.typography.titleMedium)
             }
             item { // LIST OF OWNED SKINS
                 petStats.ownedSkins.forEach { skinTag ->
@@ -61,15 +58,16 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
                             // Get the correct image resource from PetImageUtil based on skin tag
                             painter = painterResource(id = PetImageUtil.getSkinImageResource(skinTag)),
                             contentDescription = skinTag,
-                            modifier = Modifier.size(68.dp)
+                            modifier = Modifier.size(90.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = skinTag)
+                        Text(text = skinTag, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
             }
             item {
-                Text(text = "Select a Habitat", style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Select Habitat", style = MaterialTheme.typography.titleMedium)
             }
             item { // LIST OF OWNED HABITATS
                 petStats.ownedHabitats.forEach { habitatItem ->
@@ -89,10 +87,10 @@ fun SkinSelectorMenu(navController: NavController, viewModel: PetViewModel) {
                             // Get the correct image resource from PetImageUtil based on habitat chosen
                             painter = painterResource(id = PetImageUtil.getHabitatImageResource(habitatItem)),
                             contentDescription = habitatItem,
-                            modifier = Modifier.size(68.dp)
+                            modifier = Modifier.size(100.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = habitatItem)
+                        Text(text = habitatItem, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
             }
