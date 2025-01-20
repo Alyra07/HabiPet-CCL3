@@ -2,10 +2,12 @@ package at.ccl3.habipet.views
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -35,12 +37,14 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
     }
 
     var isTapped by remember { mutableStateOf(false) }
-    // Get the correct GIF resource based on tapped state
-    val currentGifResId = remember(isTapped) {
-        if (isTapped) GifUtil.getSkinTappedResource(petStats.skin) // tapped
-        else GifUtil.getSkinIdleResource(petStats.skin) // default: idle
-    }
-    // image
+    // Preload both idle and tapped animations
+    val idleGifResId = GifUtil.getSkinIdleResource(petStats.skin)
+    val tappedGifResId = GifUtil.getSkinTappedResource(petStats.skin)
+
+    // Current GIF resource to display
+    val currentGifResId by rememberUpdatedState(if (isTapped) tappedGifResId else idleGifResId)
+
+    // Image loader for handling GIFs
     val imageLoader = remember {
         ImageLoader.Builder(context)
             .components {
@@ -50,10 +54,11 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
             .build()
     }
 
+    // Handle tap and transition to idle animation
     LaunchedEffect(isTapped) {
         if (isTapped) {
-            // Reset to idle after playing tapped animation once
-            delay(1900)
+            val duration = GifUtil.getTapAnimationDuration(petStats.skin)
+            delay(duration.toLong())
             isTapped = false
         }
     }
@@ -97,12 +102,13 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
                 modifier = Modifier
                     .size(380.dp)
                     .align(Alignment.Center)
-                    .clickable {
-                        if (!isTapped) {
-                            isTapped = true
+                    .pointerInput(Unit) {
+                        detectTapGestures {
+                            if (!isTapped) {
+                                isTapped = true
+                            }
                         }
                     }
-                    .animateContentSize()
             )
 
             // CUSTOMIZE BUTTON

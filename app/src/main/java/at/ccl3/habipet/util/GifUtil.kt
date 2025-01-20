@@ -24,4 +24,12 @@ object GifUtil {
             else -> R.drawable.skin_whale_default // Default fallback
         }
     }
+
+    fun getTapAnimationDuration(skin: String): Int {
+        return when (skin) {
+            "Wha-Lee Default" -> 1680
+            "Puffy the Puffer" -> 2020
+            else -> 1900 // Default fallback
+        }
+    }
 }
