@@ -5,13 +5,13 @@ title: Welcome to HabiPet!
 
 # Introduction
 
-HabiPet is a habit-building app that allows users to set and track personal habits by defining goals for daily and weekly completion. Consistently completing habits rewards users with in-app coins, which they can spend in the shop to purchase animated pets, unique skins, and customizable backgrounds.
+**HabiPet** is a habit-building app that allows users to set and track personal habits by defining goals for daily and weekly completion. Consistently completing habits rewards users with in-app coins, which they can spend in the shop to purchase animated pets, unique skins, and customizable backgrounds.
 
 These features aim to motivate users through positive reinforcement, gamification, and interactive rewards - making habit-building an engaging experience.
 
-## 1. Usability Test
+## Usability Test Plan
 
-### 1.1 Purpose and Research Questions
+### Purpose and Research Questions
 
 The primary goal of the user test is to evaluate the usability, intuitiveness, and enjoyment of our habit-building app. Specifically, we try to answer the following key questions:
 
@@ -21,7 +21,7 @@ The primary goal of the user test is to evaluate the usability, intuitiveness, a
 
 Our app is designed for a wide audience since habits are universal and relevant for all age groups. However, the app's cute aesthetic may particularly appeal to younger users and potentially skew toward female users. We plan to recruit at least five participants for our user test.
 
-### 1.2 Data to Collect
+### Data to Collect
 
 To evaluate the app effectively, we will collect the following data:
 
@@ -37,7 +37,7 @@ To evaluate the app effectively, we will collect the following data:
 - Was anything in the app frustrating or confusing?
 - What feature or improvement would you suggest to make the app better?
 
-### 1.3 Methods to Use
+### Methods to Use
 
 Participants will complete a series of tasks designed to evaluate core app functionality:
 
@@ -56,7 +56,7 @@ We will use screen-recording software to capture user interactions, focusing on 
 
 After completing the tasks, we will conduct a brief interview to ask qualitative questions and clarify observations made during testing. This will provide additional insights into the user experience and areas for improvement.
 
-### 1.4 Plan to Visualize the Data
+### Data Visualization
 
 To present the collected data effectively, we will use the following methods:
 
@@ -66,7 +66,7 @@ To present the collected data effectively, we will use the following methods:
 - **SUS Score:** Depicted using a box plot to show the distribution of SUS scores among participants or as a single bar representing the average SUS score.
 - **Qualitative Feedback:** Summarized in a word cloud to highlight recurring themes or presented in a table to categorize user suggestions and issues.
 
-## 2. Heuristic Evaluation
+## Heuristic Evaluation
 
 We analyzed the current version (20.01.2025) of our Mobile Application to find potential problems which we can work on in the coming week as well as analyze from the feedback we will gather in our upcoming user test.
 
