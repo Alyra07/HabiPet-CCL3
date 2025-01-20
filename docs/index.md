@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Welcome to HabiPet!
+title: HabiPet
 ---
 
 # Introduction
