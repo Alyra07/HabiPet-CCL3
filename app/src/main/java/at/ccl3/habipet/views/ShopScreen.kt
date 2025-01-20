@@ -27,8 +27,9 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
         ShopItem(tag = "Puffy the Cactus", price = 20, type = "skin"),
         ShopItem(tag = "Poké Puff", price = 100, type = "skin"),
 
-        ShopItem(tag = "Blue Ocean", price = 100, type = "habitat"),
         ShopItem(tag = "Cozy Room", price = 100, type = "habitat"),
+        ShopItem(tag = "Green House", price = 50, type = "habitat"),
+        ShopItem(tag = "Blue Ocean", price = 0, type = "habitat"),
         // More items... :)
     )
 

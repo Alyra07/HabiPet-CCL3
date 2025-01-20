@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.R
+import at.ccl3.habipet.util.ImageUtil.getCoinIconResource
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
@@ -44,9 +45,10 @@ fun TopHeaderBar(
             } else {
                 // LOGO (on most screens)
                 Image(
-                    painter = painterResource(id = R.drawable.logo_64),
+                    painter = painterResource(id = R.drawable.logo_notext),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier
+                        .size(48.dp)
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -64,7 +66,7 @@ fun TopHeaderBar(
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Image( // coin icon
-                    painter = painterResource(id = R.drawable.coin_32),
+                    painter = painterResource(getCoinIconResource()),
                     contentDescription = "Coins",
                     modifier = Modifier.size(24.dp)
                 )

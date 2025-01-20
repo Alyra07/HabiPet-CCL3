@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.TopHeaderBar
-import at.ccl3.habipet.util.PetImageUtil
+import at.ccl3.habipet.util.ImageUtil
 import at.ccl3.habipet.viewmodels.PetViewModel
 import kotlinx.coroutines.launch
 
@@ -56,7 +56,7 @@ fun CustomizePetScreen(navController: NavController, viewModel: PetViewModel) {
                     ) {
                         Image(
                             // Get the correct image resource from PetImageUtil based on skin tag
-                            painter = painterResource(id = PetImageUtil.getSkinImageResource(skinTag)),
+                            painter = painterResource(id = ImageUtil.getSkinImageResource(skinTag)),
                             contentDescription = skinTag,
                             modifier = Modifier.size(90.dp)
                         )
@@ -85,7 +85,7 @@ fun CustomizePetScreen(navController: NavController, viewModel: PetViewModel) {
                     ) {
                         Image(
                             // Get the correct image resource from PetImageUtil based on habitat chosen
-                            painter = painterResource(id = PetImageUtil.getHabitatImageResource(habitatItem)),
+                            painter = painterResource(id = ImageUtil.getHabitatImageResource(habitatItem)),
                             contentDescription = habitatItem,
                             modifier = Modifier.size(100.dp)
                         )

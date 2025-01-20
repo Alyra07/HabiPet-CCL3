@@ -62,6 +62,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
                 name = if (newSkin.contains("Default")) "Wha-Lee" else newSkin,
                 skin = newSkin // set new skin
             )
+            Log.d("PetStatsRepository", "Updated Pet Skin: $newSkin")
             petStatsDao.updatePetStats(updatedStats)
         }
     }
@@ -71,6 +72,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         val currentStats = petStatsDao.getPetStats(id).firstOrNull()
         currentStats?.let {
             val updatedStats = it.copy(habitat = newHabitat)
+            Log.d("PetStatsRepository", "Updated Pet Habitat: $newHabitat")
             petStatsDao.updatePetStats(updatedStats) // set new habitat
         }
     }
