@@ -48,6 +48,7 @@ fun CustomizePetScreen(navController: NavController, viewModel: PetViewModel) {
                             .clickable {
                                 coroutineScope.launch {
                                     viewModel.updatePetSkin(petStats.id, skinTag)
+                                    viewModel.updateSkin(skinTag) // Update skin in ViewModel to trigger animation update
                                     navController.popBackStack() // Return to PetScreen after skin selection
                                 }
                             }

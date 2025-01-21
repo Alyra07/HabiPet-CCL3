@@ -69,8 +69,9 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    // COIL IMAGES
+    // IMAGES
     implementation(libs.coil)
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
+    implementation(libs.glide)
 }

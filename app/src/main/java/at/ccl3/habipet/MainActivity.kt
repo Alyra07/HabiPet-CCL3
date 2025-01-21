@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
     // Initialize PetViewModel
     private val petViewModel: PetViewModel by viewModels {
         PetViewModelFactory(
+            application = application,
             PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
         )
     }

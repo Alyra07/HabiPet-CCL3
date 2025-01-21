@@ -1,5 +1,6 @@
 package at.ccl3.habipet.viewmodels
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.ccl3.habipet.data.HabitRepository
@@ -21,14 +22,14 @@ class HabitViewModelFactory(
 
 // Factory for creating PetViewModel
 class PetViewModelFactory(
-    private val petStatsRepository: PetStatsRepository
+    private val application: Application,
+    private val repository: PetStatsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(PetViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(PetViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            PetViewModel(petStatsRepository) as T
-        } else {
-            throw IllegalArgumentException("Unknown ViewModel class")
+            return PetViewModel(application, repository) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
