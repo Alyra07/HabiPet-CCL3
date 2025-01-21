@@ -1,6 +1,6 @@
 package at.ccl3.habipet.views
 
-import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -90,26 +90,31 @@ fun PetScreen(navController: NavController, viewModel: PetViewModel) {
             )
 
             // PET IMAGE as GIF
-            Image(
-                painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(context)
-                        .data(currentGifResId)
-                        .size(Size.ORIGINAL)
-                        .build(),
-                    imageLoader = imageLoader
-                ),
-                contentDescription = "Pet Animation",
-                modifier = Modifier
-                    .size(380.dp)
-                    .align(Alignment.Center)
-                    .pointerInput(Unit) {
-                        detectTapGestures {
-                            if (!isTapped) {
-                                isTapped = true
+            Crossfade(
+                targetState = currentGifResId,
+                modifier = Modifier.align(Alignment.Center)
+            ) { gifResId ->
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(context)
+                            .data(gifResId)
+                            .size(Size.ORIGINAL)
+                            .build(),
+                        imageLoader = imageLoader
+                    ),
+                    contentDescription = "Pet Animation",
+                    modifier = Modifier
+                        .size(380.dp)
+                        .align(Alignment.Center)
+                        .pointerInput(Unit) {
+                            detectTapGestures {
+                                if (!isTapped) {
+                                    isTapped = true
+                                }
                             }
                         }
-                    }
-            )
+                )
+            }
 
             // CUSTOMIZE BUTTON
             Button(

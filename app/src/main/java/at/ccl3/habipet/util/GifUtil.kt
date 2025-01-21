@@ -27,8 +27,8 @@ object GifUtil {
 
     fun getTapAnimationDuration(skin: String): Int {
         return when (skin) {
-            "Wha-Lee Default" -> 1680
-            "Puffy the Puffer" -> 2020
+            "Wha-Lee Default" -> 1640
+            "Puffy the Puffer" -> 2060
             else -> 1900 // Default fallback
         }
     }
