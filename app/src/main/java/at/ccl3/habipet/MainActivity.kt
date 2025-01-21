@@ -4,42 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material3.Scaffold
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import at.ccl3.habipet.data.HabiPetDatabase
-import at.ccl3.habipet.data.HabitRepository
-import at.ccl3.habipet.routes.AddHabitScreen
-import at.ccl3.habipet.routes.HabitsScreen
-import at.ccl3.habipet.routes.HomeScreen
-import at.ccl3.habipet.routes.PetScreen
-import at.ccl3.habipet.ui.theme.HabiPetTheme
-import at.ccl3.habipet.viewmodels.HabitViewModel
 import androidx.compose.ui.Modifier
-import at.ccl3.habipet.components.BottomNavBar
-import at.ccl3.habipet.data.PetStatsRepository
-import at.ccl3.habipet.routes.HabitDetailsView
-import at.ccl3.habipet.routes.HabitEditView
-import at.ccl3.habipet.routes.ShopScreen
-import at.ccl3.habipet.viewmodels.HabiPetViewModelFactory
-import at.ccl3.habipet.viewmodels.PetViewModel
+import at.ccl3.habipet.ui.theme.HabiPetTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.*
+import at.ccl3.habipet.data.*
+import at.ccl3.habipet.views.*
+import at.ccl3.habipet.viewmodels.*
+import at.ccl3.habipet.components.*
 
 class MainActivity : ComponentActivity() {
     // Initialize HabitViewModel
     private val habitViewModel: HabitViewModel by viewModels {
-        HabiPetViewModelFactory(
-            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
-            PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
+        HabitViewModelFactory(
+            HabitRepository(
+                habitDao = HabiPetDatabase.getDatabase(applicationContext).habitDao(),
+                petStatsRepository = PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
+            )
         )
     }
     // Initialize PetViewModel
     private val petViewModel: PetViewModel by viewModels {
-        HabiPetViewModelFactory(
-            HabitRepository(HabiPetDatabase.getDatabase(applicationContext).habitDao()),
+        PetViewModelFactory(
+            application = application,
             PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
         )
     }
@@ -69,11 +58,13 @@ fun HabiPetApp(habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
             modifier = Modifier.padding(innerPadding)
         ) {
             // MAIN NAVIGATION ROUTES
-            composable("home") { HomeScreen(navController, habitViewModel) }
+            composable("home") { HomeScreen(navController, habitViewModel, petViewModel) }
             composable("pet") { PetScreen(navController, petViewModel) }
             composable("add_habit") { AddHabitScreen(navController, habitViewModel) }
-            composable("habits") { HabitsScreen(navController, habitViewModel) }
-            composable("shop") { ShopScreen(navController, habitViewModel) }
+            composable("habits") { HabitsScreen(navController, habitViewModel, petViewModel) }
+            composable("shop") { ShopScreen(navController, petViewModel) }
+            // CustomizePetScreen (from PetScreen)
+            composable("customize_pet") { CustomizePetScreen(navController, petViewModel) }
             // HabitDetailsView with habitId when clicking on HabitListItem
             composable("habitDetails/{habitId}") { backStackEntry ->
                 val habitId = backStackEntry.arguments?.getString("habitId")?.toInt() ?: 0
