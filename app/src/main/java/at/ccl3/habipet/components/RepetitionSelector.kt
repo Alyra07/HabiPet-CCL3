@@ -11,21 +11,29 @@ import at.ccl3.habipet.ui.theme.SmokeyGray
 // Component to select repetition options in HabitEditView & AddHabitScreen
 @Composable
 fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -> Unit) {
-    Text("Repetition")
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth()
+    Column (
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        listOf("Daily", "Weekly", "Monthly", "Test").forEach { option ->
-            Button(
-                onClick = { onRepetitionChange(option) },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
-                    contentColor = if (currentRepetition == option) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
-                ),
-                border = BorderStroke(1.dp, color = SmokeyGray)
-            ) {
-                Text(option)
+        Text("Select Repetition", style = MaterialTheme.typography.titleSmall)
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            listOf("Daily", "Weekly", "Monthly", "Test").forEach { option ->
+                Button(
+                    onClick = { onRepetitionChange(option) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
+                        contentColor = if (currentRepetition == option) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
+                    ),
+                    border = BorderStroke(1.dp,
+                        color = if (currentRepetition == option) MaterialTheme.colorScheme.onPrimary else SmokeyGray
+                    )
+                ) {
+                    Text(text = option)
+                }
             }
         }
     }

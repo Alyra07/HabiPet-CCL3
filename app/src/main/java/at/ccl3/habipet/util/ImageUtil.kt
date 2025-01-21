@@ -7,7 +7,20 @@ object ImageUtil {
     // Coin Icon (Shop currency)
     @DrawableRes
     fun getCoinIconResource(): Int {
-        return R.drawable.coin_icon
+        return R.drawable.coin_64
+    }
+
+    // Get correct habit.icon based on string for HabitListItem
+    @DrawableRes
+    fun getHabitIconResource(icon: String): Int {
+        return when (icon) {
+            "paw_default" -> R.drawable.habit_ic_default
+            "flower" -> R.drawable.habit_vintage_ic
+            "smile" -> R.drawable.habit_smile_ic
+            "fit" -> R.drawable.habit_fitness_ic
+            "heart" -> R.drawable.nav_pet_filled
+            else -> R.drawable.habit_ic_default
+        }
     }
 
     // petStats.skin (static png) for customization & ShopScreen

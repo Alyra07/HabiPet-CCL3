@@ -45,7 +45,7 @@ fun TopHeaderBar(
             } else {
                 // LOGO (on most screens)
                 Image(
-                    painter = painterResource(id = R.drawable.logo_notext),
+                    painter = painterResource(id = R.drawable.logo_img),
                     contentDescription = null,
                     modifier = Modifier
                         .size(48.dp)

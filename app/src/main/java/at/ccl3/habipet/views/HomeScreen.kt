@@ -77,6 +77,9 @@ fun HomeScreen(
                     navController.navigate("habitDetails/$habitId")
                 }
             }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
     }
 }

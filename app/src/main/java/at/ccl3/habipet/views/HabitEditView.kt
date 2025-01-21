@@ -5,10 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import at.ccl3.habipet.components.IconAndColorSelector
 import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.viewmodels.HabitViewModel
@@ -39,11 +39,10 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
         }
     }
 
-    Column (modifier = Modifier.fillMaxSize()){
+    Column(modifier = Modifier.fillMaxSize()) {
         // HEADER ROW with BACK BUTTON
         TopHeaderBar(headingText = "Edit Habit", navController = navController, showBackButton = true)
 
-        // EDIT HABIT
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -73,35 +72,34 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                 label = { Text("Streak") }
             )
 
-            // ICON & COLOR
-            OutlinedTextField(
-                value = icon,
-                onValueChange = { icon = it },
-                label = { Text("Icon") }
-            )
-            OutlinedTextField(
-                value = color,
-                onValueChange = { color = it },
-                label = { Text("Color") }
+            // ICON & COLOR SELECTOR
+            IconAndColorSelector(
+                selectedIcon = icon,
+                selectedColor = color,
+                onIconSelected = { icon = it },
+                onColorSelected = { color = it }
             )
 
-            Row ( // UPDATE & DELETE HABIT
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
-                    .align(Alignment.CenterHorizontally),
+            Row( // UPDATE & DELETE HABIT
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // SAVE BUTTON
                 Button(onClick = {
                     if (habit != null) {
                         // Update the habit with new data
-                        viewModel.update(habit.copy(
-                            name = name,
-                            description = description,
-                            repetition = repetition,
-                            streak = streak,
-                            icon = icon,
-                            color = color
-                        ))
+                        viewModel.update(
+                            habit.copy(
+                                name = name,
+                                description = description,
+                                repetition = repetition,
+                                streak = streak,
+                                icon = icon,
+                                color = color
+                            )
+                        )
                         navController.popBackStack() // Navigate back after saving
                     }
                 }) {

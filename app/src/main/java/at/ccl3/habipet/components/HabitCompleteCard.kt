@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import at.ccl3.habipet.R
 import at.ccl3.habipet.data.Habit
 import at.ccl3.habipet.ui.theme.SmokeyGray
 import at.ccl3.habipet.util.HabitUtils
+import at.ccl3.habipet.util.ImageUtil.getCoinIconResource
 
 @Composable
 fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
@@ -64,8 +64,8 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = "$coinsToAward", style = MaterialTheme.typography.bodyMedium)
-                    Image(
-                        painter = painterResource(id = R.drawable.coin_icon),
+                    Image( // coin icon from ImageUtil
+                        painter = painterResource(getCoinIconResource()),
                         contentDescription = "Coins",
                         modifier = Modifier.size(24.dp)
                     )
