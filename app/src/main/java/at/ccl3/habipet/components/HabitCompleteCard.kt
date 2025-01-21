@@ -1,10 +1,11 @@
 package at.ccl3.habipet.components
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
@@ -37,8 +38,8 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
         modifier = Modifier.fillMaxSize(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary
+            containerColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.onSecondary
         )
     ) {
         Column( // general Card content
@@ -85,7 +86,7 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
             Row( // other content
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp),
+                    .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row( // TIME PROGRESS & BUTTON
@@ -94,6 +95,7 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                 ) {
                     // COMPLETE BUTTON
                     IconButton(
+                        modifier = Modifier.size(34.dp),
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.background,
                         ),
@@ -105,7 +107,10 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                         enabled = timeProgress >= 1f
                     ) {
                         Icon(
-                            Icons.Default.Check,
+                            Icons.Default.CheckCircle,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .border(1.dp, SmokeyGray, CircleShape),
                             contentDescription = "Complete Habit",
                             tint = if (timeProgress >= 1f) MaterialTheme.colorScheme.primary else SmokeyGray
                         )

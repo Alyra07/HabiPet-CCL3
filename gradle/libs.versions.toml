@@ -7,8 +7,8 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.12.01"
+activityCompose = "1.10.0"
+composeBom = "2025.01.00"
 roomCompiler = "2.6.1"
 roomCompilerVersion = " 2.6.1"
 lifecycleViewmodelKtx = "2.8.7"
@@ -21,7 +21,9 @@ roomKtx = "2.6.1"
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompilerVersion" }
+coil = { module = "io.coil-kt:coil", version.ref = "coilCompose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coilCompose" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

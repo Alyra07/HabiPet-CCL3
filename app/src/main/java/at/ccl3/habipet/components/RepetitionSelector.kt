@@ -1,14 +1,12 @@
 package at.ccl3.habipet.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import at.ccl3.habipet.ui.theme.SmokeyGray
 
 // Component to select repetition options in HabitEditView & AddHabitScreen
 @Composable
@@ -25,7 +23,7 @@ fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -
                     containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
                     contentColor = if (currentRepetition == option) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
                 ),
-                border = ButtonDefaults.outlinedButtonBorder(enabled = currentRepetition == option),
+                border = BorderStroke(1.dp, color = SmokeyGray)
             ) {
                 Text(option)
             }

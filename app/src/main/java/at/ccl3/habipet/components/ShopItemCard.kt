@@ -1,16 +1,16 @@
 package at.ccl3.habipet.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import at.ccl3.habipet.R
-import at.ccl3.habipet.util.PetImageUtil
+import at.ccl3.habipet.ui.theme.SmokeyGray
+import at.ccl3.habipet.util.ImageUtil
 import at.ccl3.habipet.viewmodels.PetViewModel
 import at.ccl3.habipet.views.ShopItem
 
@@ -41,9 +41,9 @@ fun ShopItemCard(
                     painter = painterResource(
                         // Get the correct image resource from PetImageUtil based on item type
                         id = (if (shopItem.type == "skin") {
-                            PetImageUtil.getSkinImageResource(shopItem.tag)
+                            ImageUtil.getSkinImageResource(shopItem.tag)
                         } else {
-                            PetImageUtil.getHabitatImageResource(shopItem.tag)
+                            ImageUtil.getHabitatImageResource(shopItem.tag)
                         })
                     ),
                     contentDescription = "Shop Item ${shopItem.tag}",
@@ -53,11 +53,14 @@ fun ShopItemCard(
                 // ITEM NAME & PRICE
                 Text(text = shopItem.tag, style = MaterialTheme.typography.titleLarge)
                 Row (verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "Price: ${shopItem.price}", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        text = "Price: ${if (shopItem.price == 0) "Free" else shopItem.price}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Image( // coin icon
-                        painter = painterResource(id = R.drawable.coin_icon),
+                        painter = painterResource(ImageUtil.getCoinIconResource()),
                         contentDescription = "Coins",
                         modifier = Modifier.size(24.dp)
                     )
@@ -71,8 +74,8 @@ fun ShopItemCard(
                     containerColor = MaterialTheme.colorScheme.tertiary,
                     contentColor = MaterialTheme.colorScheme.onTertiary
                 ),
+                border = BorderStroke(1.dp, color = SmokeyGray),
                 // Disable the button if you don't have enough coins or item is already owned
-                border = ButtonDefaults.outlinedButtonBorder(enabled = !isBuyDisabled),
                 enabled = !isBuyDisabled,
             ) {
                 if (petStats != null) {
