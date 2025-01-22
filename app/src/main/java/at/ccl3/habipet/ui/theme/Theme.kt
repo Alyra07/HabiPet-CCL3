@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryYellow,
     secondary = SecondaryBlue,
-    tertiary = AccentLilac,
+    tertiary = TertiaryLilac,
     onPrimary = DarkPurple,
     onSecondary = DarkPurple,
     onTertiary = DarkPurple,

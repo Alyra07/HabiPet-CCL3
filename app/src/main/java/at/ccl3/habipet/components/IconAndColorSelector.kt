@@ -8,8 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import at.ccl3.habipet.ui.theme.PastelRed
-import at.ccl3.habipet.ui.theme.SmokeyGray
+import at.ccl3.habipet.ui.theme.*
 import at.ccl3.habipet.util.ImageUtil
 
 @Composable
@@ -23,10 +22,10 @@ fun IconAndColorSelector(
     val icons = listOf("paw_default", "flower", "smile", "fit", "heart")
     val colorMap = mapOf(
         "Default" to SmokeyGray,
-        "Yellow" to MaterialTheme.colorScheme.primary,
-        "Blue" to MaterialTheme.colorScheme.secondary,
+        "Red" to PastelRed,
         "Purple" to MaterialTheme.colorScheme.tertiary,
-        "Red" to PastelRed
+        "Blue" to MaterialTheme.colorScheme.secondary,
+        "Green" to AccentGreen,
     )
 
     Column(

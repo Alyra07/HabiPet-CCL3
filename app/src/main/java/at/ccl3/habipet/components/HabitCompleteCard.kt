@@ -13,10 +13,13 @@ import androidx.compose.ui.unit.dp
 import at.ccl3.habipet.data.Habit
 import at.ccl3.habipet.ui.theme.SmokeyGray
 import at.ccl3.habipet.util.HabitUtils
+import at.ccl3.habipet.util.HabitUtils.getHabitColor
 import at.ccl3.habipet.util.ImageUtil.getCoinIconResource
+import at.ccl3.habipet.util.ImageUtil.getHabitIconResource
 
 @Composable
-fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
+fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit, showIcon: Boolean = false) {
+    val habitColor = getHabitColor(habit.color)
     val currentTime = System.currentTimeMillis()
     val timeSinceLastCompletion = currentTime - habit.lastCompleted
     val oneMinuteInMillis = 60_000
@@ -35,10 +38,10 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
     val coinsToAward = HabitUtils.getCoinsToAward(habit.repetition)
 
     Card(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary,
+            containerColor = if (showIcon) habitColor else MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSecondary
         )
     ) {
@@ -55,6 +58,20 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if (showIcon) {
+                    Box( // habit.icon & habit.color
+                        modifier = Modifier
+                            .size(48.dp)
+                            .background(color = habitColor, shape = CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(getHabitIconResource(habit.icon)),
+                            contentDescription = habit.icon,
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }
                 // HABIT NAME
                 Text(text = habit.name, style = MaterialTheme.typography.titleLarge)
 

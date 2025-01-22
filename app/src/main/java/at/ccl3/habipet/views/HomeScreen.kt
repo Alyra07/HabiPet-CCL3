@@ -48,13 +48,17 @@ fun HomeScreen(
         ) {
             // NEXT HABIT TO COMPLETE
             item {
-                Text(text = "Complete Habit", style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
+                if (nextHabitToComplete == null) {
+                    return@item
+                } else {
+                    Text(text = "Complete Habit", style = MaterialTheme.typography.titleLarge)
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
             item {
                 nextHabitToComplete?.let { habit ->
                     // call habitViewModel.completeHabit() when the habit is completed
-                    HabitCompleteCard(habit) { habitViewModel.completeHabit(habit) }
+                    HabitCompleteCard(habit, { habitViewModel.completeHabit(habit) })
                 }
             }
 
@@ -66,9 +70,17 @@ fun HomeScreen(
 
             // RECENT HABITS
             item {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Recent Habits", style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Recent Habits",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 8.dp, top = 16.dp)
+                )
+                if (recentHabits.isEmpty()) {
+                    Text(
+                        text = "Create a habit to see it here.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 8.dp))
+                }
             }
             // Display 4 most recent habits with highest streak
             items(recentHabits) { habit ->
