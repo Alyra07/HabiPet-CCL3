@@ -30,17 +30,19 @@ fun IconAndColorSelector(
     )
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // CHOOSE ICON
         Text(text = "Select Icon", style = MaterialTheme.typography.titleSmall)
         Row(
-            modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
             icons.forEach { icon ->
                 val iconRes = ImageUtil.getHabitIconResource(icon)
+                Spacer(modifier = Modifier.width(4.dp))
                 Box(
                     modifier = Modifier
                         .size(64.dp)
@@ -52,8 +54,7 @@ fun IconAndColorSelector(
                         .border(
                             width = 2.dp,
                             color = if (icon == selectedIcon) MaterialTheme.colorScheme.onPrimary else SmokeyGray,
-                            shape = CircleShape)
-                        .padding(12.dp),
+                            shape = CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -62,17 +63,19 @@ fun IconAndColorSelector(
                         tint = if (icon == selectedIcon) MaterialTheme.colorScheme.onPrimary else SmokeyGray
                     )
                 }
+                Spacer(modifier = Modifier.width(4.dp))
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // CHOOSE COLOR
         Text(text = "Select Color", style = MaterialTheme.typography.titleSmall)
         Row(
-            modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
             colorMap.entries.forEach { (colorName, colorValue) ->
+                Spacer(modifier = Modifier.width(4.dp))
                 Box(
                     modifier = Modifier
                         .size(64.dp)
@@ -86,6 +89,7 @@ fun IconAndColorSelector(
                             shape = CircleShape
                         )
                 )
+                Spacer(modifier = Modifier.width(4.dp))
             }
         }
     }

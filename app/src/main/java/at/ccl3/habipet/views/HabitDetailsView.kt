@@ -1,7 +1,9 @@
 package at.ccl3.habipet.views
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -21,7 +23,7 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
     Column(modifier = Modifier.fillMaxSize()) {
         if (habit != null) {
             // HEADER ROW with BACK BUTTON
-            TopHeaderBar(headingText = habit.name, navController = navController, showBackButton = true)
+            TopHeaderBar(headingText = "Details", navController = navController, showBackButton = true)
 
             // DETAILS SECTION (needs work)
             LazyColumn(
@@ -30,6 +32,10 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // COMPLETE HABIT
+                item {
+                    HabitCompleteCard(habit = habit) { viewModel.completeHabit(habit) }
+                }
                 item { // Habit Description, other details
                     Text(text = habit.description, style = MaterialTheme.typography.bodyLarge)
                     Spacer(modifier = Modifier.height(8.dp))
@@ -53,14 +59,17 @@ fun HabitDetailsView(navController: NavController, viewModel: HabitViewModel, ha
                         onClick = { // Navigate to HabitEditView with habit ID
                             navController.navigate("editHabit/${habit.id}")
                         },
-
-                        ) {
-                        Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit Habit")
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit Habit",
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.padding(2.dp)
+                        )
                     }
-                }
-                // COMPLETE HABIT
-                item {
-                    HabitCompleteCard(habit = habit) { viewModel.completeHabit(habit) }
                 }
             }
         }

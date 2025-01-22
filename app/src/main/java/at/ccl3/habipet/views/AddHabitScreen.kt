@@ -40,7 +40,13 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("Habit Name") },
-                    modifier = Modifier.fillMaxWidth()
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
                 )
             }
             item {
@@ -48,14 +54,19 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Description") },
-                    modifier = Modifier.fillMaxWidth()
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 3
                 )
             }
 
             // CHOOSE HABIT REPETITION
             item {
                 RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
-                Spacer(modifier = Modifier.height(16.dp))
             }
 
             // CHOOSE ICON AND COLOR
@@ -66,12 +77,11 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     onIconSelected = { icon = it },
                     onColorSelected = { color = it }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
             }
 
             item { // SAVE BUTTON
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
                     onClick = {
                         if (name.isNotEmpty() && description.isNotEmpty() && repetition.isNotEmpty()) {
                             val newHabit = Habit(

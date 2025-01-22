@@ -19,6 +19,7 @@ private val LightColorScheme = lightColorScheme(
     surface = PaleGray, // default Card color (background)
     onSurface = Color(0xFF1C1B1F), // text color on Cards
     onSurfaceVariant = Color.DarkGray, // text color on NavBar
+    error = PastelRed
 )
 
 @Composable

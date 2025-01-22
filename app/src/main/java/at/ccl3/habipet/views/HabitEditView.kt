@@ -1,10 +1,13 @@
 package at.ccl3.habipet.views
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -41,11 +44,12 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
 
     Column(modifier = Modifier.fillMaxSize()) {
         // HEADER ROW with BACK BUTTON
-        TopHeaderBar(headingText = "Edit Habit", navController = navController, showBackButton = true)
+        TopHeaderBar(headingText = "Edit", navController = navController, showBackButton = true)
 
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // NAME & DESCRIPTION
             OutlinedTextField(
@@ -60,17 +64,16 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                 onValueChange = { description = it },
                 label = { Text("Description") },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
             )
+//            OutlinedTextField(
+//                value = streak.toString(),
+//                onValueChange = { streak = it.toIntOrNull() ?: 0 },
+//                label = { Text("Streak") }
+//            )
 
-            // REPETITION & STREAK
+            // SELECT REPETITION
             RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
-
-            OutlinedTextField(
-                value = streak.toString(),
-                onValueChange = { streak = it.toIntOrNull() ?: 0 },
-                label = { Text("Streak") }
-            )
 
             // ICON & COLOR SELECTOR
             IconAndColorSelector(
@@ -83,8 +86,9 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
             Row( // UPDATE & DELETE HABIT
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(horizontal = 10.dp, vertical = 32.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 // SAVE BUTTON
                 Button(onClick = {
@@ -109,8 +113,16 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                 // DELETE BUTTON
                 IconButton(
                     onClick = { showDialog = true },
+                    modifier = Modifier
+                        .size(40.dp)
+                        .background(MaterialTheme.colorScheme.error, shape = CircleShape)
                 ) {
-                    Icon(Icons.Filled.Delete, contentDescription = "Delete Habit")
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = "Delete Habit",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.padding(2.dp)
+                    )
                 }
             }
 
