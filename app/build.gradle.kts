@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "at.ccl3.habipet"
-        minSdk = 21
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -68,5 +68,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    // IMAGES
+    implementation(libs.coil)
     implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
+    implementation(libs.glide)
 }

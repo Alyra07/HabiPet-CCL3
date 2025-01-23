@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.components.*
@@ -48,21 +48,39 @@ fun HomeScreen(
         ) {
             // NEXT HABIT TO COMPLETE
             item {
-                Text(text = "Complete Habit", style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
+                if (nextHabitToComplete == null) {
+                    return@item
+                } else {
+                    Text(text = "Complete Habit", style = MaterialTheme.typography.titleLarge)
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
             item {
                 nextHabitToComplete?.let { habit ->
                     // call habitViewModel.completeHabit() when the habit is completed
-                    HabitCompleteCard(habit) { habitViewModel.completeHabit(habit) }
+                    HabitCompleteCard(habit, { habitViewModel.completeHabit(habit) })
                 }
+            }
+
+            // HABIT COMPLETION CALENDAR
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                HabitCalendar(habits = habits)
             }
 
             // RECENT HABITS
             item {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Recent Habits", style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Recent Habits",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 8.dp, top = 16.dp)
+                )
+                if (recentHabits.isEmpty()) {
+                    Text(
+                        text = "Create a habit to see it here.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 8.dp))
+                }
             }
             // Display 4 most recent habits with highest streak
             items(recentHabits) { habit ->
@@ -70,6 +88,9 @@ fun HomeScreen(
                     val habitId = habit.id
                     navController.navigate("habitDetails/$habitId")
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

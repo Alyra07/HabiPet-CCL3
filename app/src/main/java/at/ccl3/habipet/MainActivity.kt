@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
     // Initialize PetViewModel
     private val petViewModel: PetViewModel by viewModels {
         PetViewModelFactory(
+            application = application,
             PetStatsRepository(HabiPetDatabase.getDatabase(applicationContext).petStatsDao())
         )
     }
@@ -63,7 +64,7 @@ fun HabiPetApp(habitViewModel: HabitViewModel, petViewModel: PetViewModel) {
             composable("habits") { HabitsScreen(navController, habitViewModel, petViewModel) }
             composable("shop") { ShopScreen(navController, petViewModel) }
             // CustomizePetScreen (from PetScreen)
-            composable("skin_selector_menu") { CustomizePetScreen(navController, petViewModel) }
+            composable("customize_pet") { CustomizePetScreen(navController, petViewModel) }
             // HabitDetailsView with habitId when clicking on HabitListItem
             composable("habitDetails/{habitId}") { backStackEntry ->
                 val habitId = backStackEntry.arguments?.getString("habitId")?.toInt() ?: 0

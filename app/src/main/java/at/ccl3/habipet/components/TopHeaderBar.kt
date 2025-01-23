@@ -8,11 +8,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ccl3.habipet.R
+import at.ccl3.habipet.util.ImageUtil.getCoinIconResource
 import at.ccl3.habipet.viewmodels.PetViewModel
 
 @Composable
@@ -45,11 +45,10 @@ fun TopHeaderBar(
             } else {
                 // LOGO (on most screens)
                 Image(
-                    painter = painterResource(id = R.drawable.logo_vector),
+                    painter = painterResource(id = R.drawable.logo_habipet),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp),
-                    contentScale = ContentScale.Fit,
-                    alpha = 0.9f
+                    modifier = Modifier
+                        .size(48.dp)
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -58,14 +57,16 @@ fun TopHeaderBar(
 
         // COINS DISPLAY
         if (petStats != null) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = "${petStats.coins}",
                     style = MaterialTheme.typography.bodyLarge
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.coin_icon),
+                Image( // coin icon
+                    painter = painterResource(getCoinIconResource()),
                     contentDescription = "Coins",
                     modifier = Modifier.size(24.dp)
                 )

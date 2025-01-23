@@ -1,21 +1,25 @@
 package at.ccl3.habipet.components
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import at.ccl3.habipet.R
 import at.ccl3.habipet.data.Habit
 import at.ccl3.habipet.ui.theme.SmokeyGray
 import at.ccl3.habipet.util.HabitUtils
+import at.ccl3.habipet.util.HabitUtils.getHabitColor
+import at.ccl3.habipet.util.ImageUtil.getCoinIconResource
+import at.ccl3.habipet.util.ImageUtil.getHabitIconResource
 
 @Composable
-fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
+fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit, showIcon: Boolean = false) {
+    val habitColor = getHabitColor(habit.color)
     val currentTime = System.currentTimeMillis()
     val timeSinceLastCompletion = currentTime - habit.lastCompleted
     val oneMinuteInMillis = 60_000
@@ -34,11 +38,11 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
     val coinsToAward = HabitUtils.getCoinsToAward(habit.repetition)
 
     Card(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary
+            containerColor = if (showIcon) habitColor else MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondary
         )
     ) {
         Column( // general Card content
@@ -54,6 +58,20 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if (showIcon) {
+                    Box( // habit.icon & habit.color
+                        modifier = Modifier
+                            .size(48.dp)
+                            .background(color = habitColor, shape = CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(getHabitIconResource(habit.icon)),
+                            contentDescription = habit.icon,
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }
                 // HABIT NAME
                 Text(text = habit.name, style = MaterialTheme.typography.titleLarge)
 
@@ -63,8 +81,8 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = "$coinsToAward", style = MaterialTheme.typography.bodyMedium)
-                    Image(
-                        painter = painterResource(id = R.drawable.coin_icon),
+                    Image( // coin icon from ImageUtil
+                        painter = painterResource(getCoinIconResource()),
                         contentDescription = "Coins",
                         modifier = Modifier.size(24.dp)
                     )
@@ -85,7 +103,7 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
             Row( // other content
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp),
+                    .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row( // TIME PROGRESS & BUTTON
@@ -94,6 +112,7 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                 ) {
                     // COMPLETE BUTTON
                     IconButton(
+                        modifier = Modifier.size(34.dp),
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.background,
                         ),
@@ -105,7 +124,10 @@ fun HabitCompleteCard(habit: Habit, onComplete: () -> Unit) {
                         enabled = timeProgress >= 1f
                     ) {
                         Icon(
-                            Icons.Default.Check,
+                            Icons.Default.CheckCircle,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .border(1.dp, SmokeyGray, CircleShape),
                             contentDescription = "Complete Habit",
                             tint = if (timeProgress >= 1f) MaterialTheme.colorScheme.primary else SmokeyGray
                         )

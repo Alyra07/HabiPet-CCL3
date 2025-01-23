@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryYellow,
     secondary = SecondaryBlue,
-    tertiary = AccentLilac,
+    tertiary = TertiaryLilac,
     onPrimary = DarkPurple,
     onSecondary = DarkPurple,
     onTertiary = DarkPurple,
@@ -19,6 +19,7 @@ private val LightColorScheme = lightColorScheme(
     surface = PaleGray, // default Card color (background)
     onSurface = Color(0xFF1C1B1F), // text color on Cards
     onSurfaceVariant = Color.DarkGray, // text color on NavBar
+    error = PastelRed
 )
 
 @Composable

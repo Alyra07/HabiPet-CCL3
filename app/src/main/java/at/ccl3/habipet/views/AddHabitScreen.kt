@@ -3,19 +3,14 @@ package at.ccl3.habipet.views
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import at.ccl3.habipet.components.IconAndColorSelector
 import at.ccl3.habipet.components.TopHeaderBar
 import at.ccl3.habipet.components.RepetitionSelector
 import at.ccl3.habipet.data.Habit
@@ -23,19 +18,21 @@ import at.ccl3.habipet.viewmodels.HabitViewModel
 
 @Composable
 fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
+    // Get values from input fields
     var name by rememberSaveable { mutableStateOf("") }
     var description by rememberSaveable { mutableStateOf("") }
-    var repetition by rememberSaveable { mutableStateOf("Daily") } // default repetition
-    var icon by rememberSaveable { mutableStateOf("") }
-    var color by rememberSaveable { mutableStateOf("") }
+    var repetition by rememberSaveable { mutableStateOf("Daily") }
+    var icon by rememberSaveable { mutableStateOf("paw_default") }
+    var color by rememberSaveable { mutableStateOf("Default") }
 
     Column(modifier = Modifier.fillMaxSize()) {
         // HEADER ROW without coins
         TopHeaderBar(headingText = "Add New Habit", navController = navController)
 
         LazyColumn(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // TEXT FIELDS
             item {
@@ -43,7 +40,13 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("Habit Name") },
-                    modifier = Modifier.fillMaxWidth()
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
                 )
             }
             item {
@@ -51,7 +54,13 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Description") },
-                    modifier = Modifier.fillMaxWidth()
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 3
                 )
             }
 
@@ -62,24 +71,17 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
 
             // CHOOSE ICON AND COLOR
             item {
-                TextField(
-                    value = icon,
-                    onValueChange = { icon = it },
-                    label = { Text("Icon") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-            item {
-                TextField(
-                    value = color,
-                    onValueChange = { color = it },
-                    label = { Text("Color") },
-                    modifier = Modifier.fillMaxWidth()
+                IconAndColorSelector(
+                    selectedIcon = icon,
+                    selectedColor = color,
+                    onIconSelected = { icon = it },
+                    onColorSelected = { color = it }
                 )
             }
 
             item { // SAVE BUTTON
                 Button(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
                     onClick = {
                         if (name.isNotEmpty() && description.isNotEmpty() && repetition.isNotEmpty()) {
                             val newHabit = Habit(
@@ -89,15 +91,12 @@ fun AddHabitScreen(navController: NavController, viewModel: HabitViewModel) {
                                 icon = icon,
                                 color = color
                             )
-                            // Insert new habit via HabitViewModel
                             viewModel.insert(newHabit)
-                            navController.navigateUp() // Navigate back after saving
+                            navController.navigateUp()
                         } else {
-                            // Handle empty fields
                             Log.d("AddHabitScreen", "Name, description, or repetition is empty")
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary

@@ -1,6 +1,21 @@
 package at.ccl3.habipet.util
 
+import androidx.compose.ui.graphics.Color
+import at.ccl3.habipet.ui.theme.*
+
 object HabitUtils {
+    // Get right habit.color based on string
+    fun getHabitColor(color: String): Color {
+        return when (color) {
+            "Default" -> SmokeyGray
+            "Green" -> AccentGreen
+            "Blue" -> SecondaryBlue
+            "Purple" -> TertiaryLilac
+            "Red" -> PastelRed
+            else -> PaleGray // fallback to bg color
+        }
+    }
+
     // Set STREAK GOAL based on repetition type
     // (you get coins for completing streak goal)
     fun getStreakGoal(repetition: String): Int {
@@ -36,7 +51,7 @@ object HabitUtils {
             "Daily" -> 86_400_000L
             "Weekly" -> 604_800_000L
             "Monthly" -> 2_592_000_000L
-            "Test" -> oneMinuteInMillis
+            "Test" -> oneMinuteInMillis // "Test" case one minute
             else -> Long.MAX_VALUE
         }
     }

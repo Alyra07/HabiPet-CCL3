@@ -11,9 +11,9 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         return petStatsDao.getPetStats(id).onStart {
             // Emit default petStats if none exist in the database (Starter Pet)
             if (petStatsDao.getPetStats(id).firstOrNull() == null) {
-                petStatsDao.insertPetStats(
-                    PetStats(id = 1, name = "Wha-Lee", level = 1, xp = 0, coins = 0)
-                )
+                val defaultPetStats = PetStats(id = 1, name = "Kitty", level = 1, xp = 0)
+                petStatsDao.insertPetStats(defaultPetStats)
+                Log.d("PetStatsRepository", "Inserted default Pet Stats: $defaultPetStats")
             }
         }
     }
@@ -58,10 +58,12 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         val currentStats = petStatsDao.getPetStats(id).firstOrNull()
         currentStats?.let {
             val updatedStats = it.copy(
-                // rename the pet if it's a Puffy skin
-                name = if (newSkin.contains("Default")) "Wha-Lee" else newSkin,
+                // rename the pet to its skin name, but remove Default string
+                name = if (newSkin.contains("Default")) newSkin.substringBefore(" Default")
+                else newSkin,
                 skin = newSkin // set new skin
             )
+            Log.d("PetStatsRepository", "Updated Pet Skin: $newSkin")
             petStatsDao.updatePetStats(updatedStats)
         }
     }
@@ -71,6 +73,7 @@ class PetStatsRepository(private val petStatsDao: PetStatsDao) {
         val currentStats = petStatsDao.getPetStats(id).firstOrNull()
         currentStats?.let {
             val updatedStats = it.copy(habitat = newHabitat)
+            Log.d("PetStatsRepository", "Updated Pet Habitat: $newHabitat")
             petStatsDao.updatePetStats(updatedStats) // set new habitat
         }
     }
