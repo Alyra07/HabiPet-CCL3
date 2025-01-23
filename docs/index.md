@@ -3,15 +3,78 @@ layout: default
 title: HabiPet
 ---
 
-# Introduction
+# App Concept
 
 **HabiPet** is a habit-building app that allows users to set and track personal habits by defining goals for daily and weekly completion. Consistently completing habits rewards users with in-app coins, which they can spend in the shop to purchase animated pets, unique skins, and customizable backgrounds.
 
 These features aim to motivate users through positive reinforcement, gamification, and interactive rewards - making habit-building an engaging experience.
 
-## Usability Test Plan
+# Goals & Features
 
-### Purpose and Research Questions
+- **Habit creation and tracking** (CRUD functionality)
+- **Virtual pet interaction and progression** (XP, level, and customization)
+- **Calendar and tracking of habit completion**
+- **Shop for customization and rewards** (Pet skins and habitats)
+
+# Database Overview
+
+## Tables
+
+1. **Habits Table**: Stores habit details (name, description, repetition, streak, icon, color, etc.).
+   - Habits have a one-to-many relationship with `PetStats` (completion rewards XP).
+   - Habits link to `PetStats.coins` since you earn coins by reaching a habit’s streak goal.
+   
+2. **PetStats Table**: Stores data related to the pet (name, level, XP, skin, habitat, coins, etc.).
+
+## Data Flow
+
+1. **HabiPetDatabase**: Creates the Room database for the entire project (saving `Habit` and `PetStats`).
+2. **Habit & PetStats Entity and DAO**: Controls how data (habit- or pet-related) is saved to the Room database.
+3. **Habit & PetStats ViewModel**: All data-related operations are executed within the `viewModelScope`. The ViewModel acts as an intermediary between the UI and data layer for both habits and petStats.
+4. **Habit & PetStats Repository**: Provides a clean and organized way to manage habit or pet data and its interactions with other parts of the application.
+   - Handles the actual CRUD logic for `Habit` (e.g., `addHabit`, `completeHabit`) and `PetStats` (e.g., `updateXP`, `buyShopItem`).
+
+# App Showcase
+
+## Views
+
+- **HomeScreen**: Displays a list of recent habits, a habit calendar, and the `CompleteHabitCard`, where habits can be marked as completed.
+- **PetScreen**: Shows detailed pet stats, animations, and interactions (e.g., tap animation)
+  - Clicking “Customize” navigates to `CustomizePetScreen`, where you can set `PetStats.skin` and `PetStats.habitat`.
+- **AddHabitScreen**: Allows users to input new habits and choose repetition, icon, and color
+- **HabitsScreen**: Provides an overview of all habits stored in the database
+- **HabitDetailsView**: Displays a detailed overview of a selected habit (includes an edit button)
+  - **EditHabitView**: Enables users to edit or delete the habit
+- **ShopScreen**: Features purchasable skin and habitat items for the PetScreen
+  - Purchased items are added to `PetStats.ownedSkins` or `PetStats.ownedHabitats` to save them for later use in `CustomizePetScreen`.
+
+## Components
+
+- **TopHeaderBar**: Contains the logo, heading, and a display for `PetStats.coins`.
+- **BottomNavBar**: Contains the main navigation routes (Home, Pet, Add Habit, Habits, and Shop).
+- **RepetitionSelector & IconAndColorSelector**: Used in `AddHabitScreen` and `EditHabitView` to select a predefined habit repetition, icon, and color.
+  - If `habit.repetition` is set to "Test", the cooldown for completing a habit is only one minute - that is to efficiently test the habit completion and receive rewards (`petStats.coins`) during a usability test.
+- **HabitListItem**: Used for displaying habits in lists (HomeScreen or HabitsScreen). Clicking it navigates to the habit’s details page.
+- **HabitCompleteCard**: Enables users to mark a habit as completed based on its repetition.
+- **ShopItemCard**: Displays a single shop item with a preview of a skin or habitat in the ShopScreen.
+- **PetLevelBar**: A linear progress bar used in the PetScreen to display the pet’s current XP and level.
+
+## Util
+
+Utility objects provide calculations and reusable functionalities across the app.
+
+- **HabitUtil**: Contains helper functions for managing habit-related data, such as color, streak goals, rewards, and time progress calculations.
+- **ImageUtil**: Maps string identifiers (e.g., habit icons, pet skins, and habitats) to their corresponding drawable resources.
+- **GifUtil**: Similar to `ImageUtil`, it provides access to GIF and image resources for animations on the PetScreen.
+
+## Further Improvements?
+- Improve Utility files to calculate habit time progress more efficiently - Currently, a habit can only be completed after a specific time (e.g.: You have to wait 24 hours to complete a "Daily" habit again).
+- We saved all pet animation GIFs to the /res/drawable, since the room database was already set up when we finished the animations. Saving & preloading so many GIFs from resources makes the .apk unnecessarily large and seems to compromise performance, especially when switching pet skins. Additionally, the animation loading and logic in general (`PetViewModel`) could be improved.
+- Originally, we planned to implement mobile notifications for completing habits, but there simply wasn't enough time.
+
+# Usability Test Plan
+
+## Purpose and Research Questions
 
 The primary goal of the user test is to evaluate the usability, intuitiveness, and enjoyment of our habit-building app. Specifically, we try to answer the following key questions:
 
@@ -21,7 +84,7 @@ The primary goal of the user test is to evaluate the usability, intuitiveness, a
 
 Our app is designed for a wide audience since habits are universal and relevant for all age groups. However, the app's cute aesthetic may particularly appeal to younger users and potentially skew toward female users. We plan to recruit at least five participants for our user test.
 
-### Data to Collect
+## Data to Collect
 
 To evaluate the app effectively, we will collect the following data:
 
@@ -56,7 +119,7 @@ We will use screen-recording software to capture user interactions, focusing on 
 
 After completing the tasks, we will conduct a brief interview to ask qualitative questions and clarify observations made during testing. This will provide additional insights into the user experience and areas for improvement.
 
-### Data Visualization
+## Data Visualization
 
 To present the collected data effectively, we will use the following methods:
 
@@ -93,3 +156,11 @@ We analyzed the current version (20.01.2025) of our Mobile Application to find p
 | 4 | On the calendar page right now, there is not really a way to switch to different months than the one you are currently in. Even though you maybe want to view your old achievements. | 3. User Control and Freedom | 7 |
 | 5 | In the current version the "Icon" input field in the "Add New Habit" page seems a bit confusing because a user would not know what to input here by default. | 9. Help Users Recognize, Diagnose, and Recover from Errors | 7 |
 | 6 | There is no description about what the app is used for which could potentially confuse people who download the app out of curiosity without having ever used a habit app. | 10. Help and Documentation | 5 |
+
+# User Test Results
+
+# Summary & Reflection
+
+## Personal Challenges
+
+## Conclusion
