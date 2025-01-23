@@ -16,6 +16,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
 - **Calendar and tracking of habit completion**
 - **Shop for customization and rewards** (Pet skins and habitats)
 
+
 # Database Overview
 
 ## Tables
@@ -61,7 +62,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
   
 - **RepetitionSelector & IconAndColorSelector**: Used in `AddHabitScreen` and `EditHabitView` to select a predefined habit repetition, icon, and color.
   - If `habit.repetition` is set to "Test", the cooldown for completing a habit is only one minute - that is to efficiently test the habit completion and receive rewards (`petStats.coins`) during a usability test.
-    
+
 - **HabitListItem**: Used for displaying habits in lists (HomeScreen or HabitsScreen). Clicking it navigates to the habit’s details page.
   
 - **HabitCompleteCard**: Enables users to mark a habit as completed based on its repetition
