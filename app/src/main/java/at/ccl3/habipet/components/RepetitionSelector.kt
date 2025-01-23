@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import at.ccl3.habipet.ui.theme.SmokeyGray
 
 // Component to select repetition options in HabitEditView & AddHabitScreen
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -> Unit) {
     Column (
@@ -19,13 +20,16 @@ fun RepetitionSelector(currentRepetition: String, onRepetitionChange: (String) -
     ) {
         Text("Select Repetition", style = MaterialTheme.typography.titleSmall)
 
-        Row(
+        FlowRow(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth(),
+            maxItemsInEachRow = 4, // 4 options per row
+            overflow = FlowRowOverflow.Clip
         ) {
             listOf("Daily", "Weekly", "Monthly", "Test").forEach { option ->
                 Button(
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(horizontal = 2.dp),
                     onClick = { onRepetitionChange(option) },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (currentRepetition == option) MaterialTheme.colorScheme.surfaceContainer else MaterialTheme.colorScheme.surface,

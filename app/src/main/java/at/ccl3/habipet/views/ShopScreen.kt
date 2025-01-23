@@ -21,15 +21,20 @@ fun ShopScreen(navController: NavController, petViewModel: PetViewModel) {
 
     // ALL SHOP ITEMS
     val shopItems = listOf(
-        ShopItem(tag = "Sushi Wha-Lee", price = 10, type = "skin"),
-        ShopItem(tag = "Wha-Lee of Doom", price = 20, type = "skin"),
+        ShopItem(tag = "Black Kitty", price = 10, type = "skin"),
+        ShopItem(tag = "Pet Cheetah", price = 20, type = "skin"),
+        ShopItem(tag = "Kola the Koala", price = 20, type = "skin"),
+        ShopItem(tag = "Dark Kola", price = 20, type = "skin"),
+        ShopItem(tag = "Pyjama Kola", price = 100, type = "skin"),
         ShopItem(tag = "Puffy the Puffer", price = 20, type = "skin"),
         ShopItem(tag = "Puffy the Cactus", price = 20, type = "skin"),
         ShopItem(tag = "Poké Puff", price = 100, type = "skin"),
+        ShopItem(tag = "Wha-Lee Default", price = 10, type = "skin"),
+        ShopItem(tag = "Sushi Wha-Lee", price = 20, type = "skin"),
+        ShopItem(tag = "Wha-Lee of Doom", price = 20, type = "skin"),
 
         ShopItem(tag = "Cozy Room", price = 100, type = "habitat"),
         ShopItem(tag = "Green House", price = 50, type = "habitat"),
-        ShopItem(tag = "Blue Ocean", price = 0, type = "habitat"),
         // More items... :)
     )
 

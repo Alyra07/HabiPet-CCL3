@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import at.ccl3.habipet.ui.theme.*
 import at.ccl3.habipet.util.ImageUtil
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun IconAndColorSelector(
     selectedIcon: String,
@@ -35,13 +36,14 @@ fun IconAndColorSelector(
     ) {
         // CHOOSE ICON
         Text(text = "Select Icon", style = MaterialTheme.typography.titleSmall)
-        Row(
+        FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            maxItemsInEachRow = 15 // there are 5 icons with each 2 spacers
         ) {
             icons.forEach { icon ->
                 val iconRes = ImageUtil.getHabitIconResource(icon)
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 Box(
                     modifier = Modifier
                         .size(64.dp)
@@ -53,7 +55,8 @@ fun IconAndColorSelector(
                         .border(
                             width = 2.dp,
                             color = if (icon == selectedIcon) MaterialTheme.colorScheme.onPrimary else SmokeyGray,
-                            shape = CircleShape),
+                            shape = CircleShape)
+                        .padding(4.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -62,19 +65,20 @@ fun IconAndColorSelector(
                         tint = if (icon == selectedIcon) MaterialTheme.colorScheme.onPrimary else SmokeyGray
                     )
                 }
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(2.dp))
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
 
         // CHOOSE COLOR
         Text(text = "Select Color", style = MaterialTheme.typography.titleSmall)
-        Row(
+        FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            maxItemsInEachRow = 15 // there are 5 colors with each 2 spacers
         ) {
             colorMap.entries.forEach { (colorName, colorValue) ->
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 Box(
                     modifier = Modifier
                         .size(64.dp)
@@ -87,8 +91,9 @@ fun IconAndColorSelector(
                             color = colorValue,
                             shape = CircleShape
                         )
+                        .padding(4.dp),
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(2.dp))
             }
         }
     }

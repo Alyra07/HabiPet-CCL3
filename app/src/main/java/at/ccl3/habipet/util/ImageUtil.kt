@@ -27,6 +27,12 @@ object ImageUtil {
     @DrawableRes
     fun getSkinImageResource(skin: String): Int {
         return when (skin) {
+            "Kitty Default" -> R.drawable.skin_cat_default
+            "Black Kitty" -> R.drawable.skin_cat_black
+            "Pet Cheetah" -> R.drawable.skin_cat_cheetah
+            "Kola the Koala" -> R.drawable.skin_koala
+            "Dark Kola" -> R.drawable.skin_koala_dark
+            "Pyjama Kola" -> R.drawable.skin_koala_brown
             "Wha-Lee Default" -> R.drawable.skin_whale_default
             "Sushi Wha-Lee" -> R.drawable.skin_whale_sushi
             "Wha-Lee of Doom" -> R.drawable.skin_whale_doom
@@ -42,7 +48,6 @@ object ImageUtil {
     @DrawableRes
     fun getHabitatImageResource(habitat: String): Int {
         return when (habitat) {
-            "Blue Ocean" -> R.drawable.habitat_ocean
             "Cozy Room" -> R.drawable.habitat_room3
             "Green House" -> R.drawable.habitat_forest
 

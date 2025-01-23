@@ -66,11 +66,6 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
             )
-//            OutlinedTextField(
-//                value = streak.toString(),
-//                onValueChange = { streak = it.toIntOrNull() ?: 0 },
-//                label = { Text("Streak") }
-//            )
 
             // SELECT REPETITION
             RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
@@ -140,12 +135,12 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
                                 navController.navigate("home") // Navigate to Home after deleting
                             }
                         }) {
-                            Text("Delete")
+                            Text("Delete", color = MaterialTheme.colorScheme.onSurface)
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { showDialog = false }) {
-                            Text("Cancel")
+                            Text("Cancel", color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                 )

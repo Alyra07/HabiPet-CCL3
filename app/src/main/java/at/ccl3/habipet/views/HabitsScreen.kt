@@ -3,6 +3,7 @@ package at.ccl3.habipet.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,15 @@ fun HabitsScreen(navController: NavController, habitViewModel: HabitViewModel, p
                     val habitId = habit.id
                     // pass habit ID to HabitDetailsView onClick
                     navController.navigate("habitDetails/$habitId")
+                }
+            }
+
+            if (habits.isEmpty()) {
+                item {
+                    Text(
+                        text = "No habits yet!",
+                        modifier = Modifier.padding(vertical = 16.dp)
+                    )
                 }
             }
         }

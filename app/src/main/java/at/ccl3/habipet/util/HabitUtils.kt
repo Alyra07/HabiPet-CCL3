@@ -46,12 +46,12 @@ object HabitUtils {
     }
     // Get DURATION in milliseconds based on repetition type
     fun getDurationMillis(repetition: String): Long {
-        val oneSecondInMillis = 1_000L
+        val oneMinuteInMillis = 60_000L
         return when (repetition) {
             "Daily" -> 86_400_000L
             "Weekly" -> 604_800_000L
             "Monthly" -> 2_592_000_000L
-            "Test" -> oneSecondInMillis * 10 // "Test" case 10 seconds
+            "Test" -> oneMinuteInMillis // "Test" case one minute
             else -> Long.MAX_VALUE
         }
     }
