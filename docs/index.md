@@ -9,7 +9,7 @@ title: HabiPet
 
 These features aim to motivate users through positive reinforcement, gamification, and interactive rewards - making habit-building an engaging experience.
 
-# Goals & Features
+### Goals & Features
 
 - **Habit creation and tracking** (CRUD functionality)
 - **Virtual pet interaction and progression** (XP, level, and customization)
@@ -26,7 +26,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
    
 2. **PetStats Table**: Stores data related to the pet (name, level, XP, skin, habitat, coins, etc.).
 
-## Data Flow
+### Data Flow
 
 1. **HabiPetDatabase**: Creates the Room database for the entire project (saving `Habit` and `PetStats`).
 2. **Habit & PetStats Entity and DAO**: Controls how data (habit- or pet-related) is saved to the Room database.
@@ -39,25 +39,36 @@ These features aim to motivate users through positive reinforcement, gamificatio
 ## Views
 
 - **HomeScreen**: Displays a list of recent habits, a habit calendar, and the `CompleteHabitCard`, where habits can be marked as completed.
+  
 - **PetScreen**: Shows detailed pet stats, animations, and interactions (e.g., tap animation)
   - Clicking “Customize” navigates to `CustomizePetScreen`, where you can set `PetStats.skin` and `PetStats.habitat`.
+   
 - **AddHabitScreen**: Allows users to input new habits and choose repetition, icon, and color
+  
 - **HabitsScreen**: Provides an overview of all habits stored in the database
+  
 - **HabitDetailsView**: Displays a detailed overview of a selected habit (includes an edit button)
   - **EditHabitView**: Enables users to edit or delete the habit
+    
 - **ShopScreen**: Features purchasable skin and habitat items for the PetScreen
   - Purchased items are added to `PetStats.ownedSkins` or `PetStats.ownedHabitats` to save them for later use in `CustomizePetScreen`.
 
 ## Components
 
-- **TopHeaderBar**: Contains the logo, heading, and a display for `PetStats.coins`.
-- **BottomNavBar**: Contains the main navigation routes (Home, Pet, Add Habit, Habits, and Shop).
+- **TopHeaderBar**: Contains the logo, heading, and a display for `PetStats.coins`
+  
+- **BottomNavBar**: Contains the main navigation routes (Home, Pet, Add Habit, Habits, and Shop)
+  
 - **RepetitionSelector & IconAndColorSelector**: Used in `AddHabitScreen` and `EditHabitView` to select a predefined habit repetition, icon, and color.
   - If `habit.repetition` is set to "Test", the cooldown for completing a habit is only one minute - that is to efficiently test the habit completion and receive rewards (`petStats.coins`) during a usability test.
+    
 - **HabitListItem**: Used for displaying habits in lists (HomeScreen or HabitsScreen). Clicking it navigates to the habit’s details page.
-- **HabitCompleteCard**: Enables users to mark a habit as completed based on its repetition.
-- **ShopItemCard**: Displays a single shop item with a preview of a skin or habitat in the ShopScreen.
-- **PetLevelBar**: A linear progress bar used in the PetScreen to display the pet’s current XP and level.
+  
+- **HabitCompleteCard**: Enables users to mark a habit as completed based on its repetition
+  
+- **ShopItemCard**: Displays a single shop item with a preview of a skin or habitat in the ShopScreen
+  
+- **PetLevelBar**: Linear progress bar used in the PetScreen to display the pet’s current XP and level
 
 ## Util
 
@@ -66,11 +77,6 @@ Utility objects provide calculations and reusable functionalities across the app
 - **HabitUtil**: Contains helper functions for managing habit-related data, such as color, streak goals, rewards, and time progress calculations.
 - **ImageUtil**: Maps string identifiers (e.g., habit icons, pet skins, and habitats) to their corresponding drawable resources.
 - **GifUtil**: Similar to `ImageUtil`, it provides access to GIF and image resources for animations on the PetScreen.
-
-## Further Improvements?
-- Improve Utility files to calculate habit time progress more efficiently - Currently, a habit can only be completed after a specific time (e.g.: You have to wait 24 hours to complete a "Daily" habit again).
-- We saved all pet animation GIFs to the /res/drawable, since the room database was already set up when we finished the animations. Saving & preloading so many GIFs from resources makes the .apk unnecessarily large and seems to compromise performance, especially when switching pet skins. Additionally, the animation loading and logic in general (`PetViewModel`) could be improved.
-- Originally, we planned to implement mobile notifications for completing habits, but there simply wasn't enough time.
 
 # Usability Test Plan
 
@@ -158,6 +164,12 @@ We analyzed the current version (20.01.2025) of our Mobile Application to find p
 | 6 | There is no description about what the app is used for which could potentially confuse people who download the app out of curiosity without having ever used a habit app. | 10. Help and Documentation | 5 |
 
 # User Test Results
+
+## Further App Improvements?
+- Improve Utility files to calculate habit time progress more efficiently - Currently, a habit can only be completed after a specific time (e.g.: You have to wait 24 hours to complete a "Daily" habit again).
+  - We saved all pet animation GIFs to the /res/drawable, since the room database was already set up when we finished the animations. Saving & preloading so many GIFs from resources makes the .apk unnecessarily large and seems to compromise performance, especially when switching pet skins. Additionally, the animation loading and logic in general could be improved.
+    
+- Originally, we planned to implement **push-notifications** for completing habits, but there simply wasn't enough time.
 
 # Summary & Reflection
 
