@@ -51,10 +51,8 @@ fun HabitCalendar(habits: List<Habit>) {
 
             // WEEK
             for (week in daysList.chunked(7)) {
-                FlowRow(
+                Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    maxItemsInEachRow = 7
                 ) {
                     // WEEKDAY
                     for (day in week) {

@@ -46,7 +46,7 @@ fun IconAndColorSelector(
                 Spacer(modifier = Modifier.width(2.dp))
                 Box(
                     modifier = Modifier
-                        .size(64.dp)
+                        .size(48.dp)
                         .clickable { onIconSelected(icon) }
                         .background(
                             color = if (icon == selectedIcon) MaterialTheme.colorScheme.background
@@ -81,7 +81,7 @@ fun IconAndColorSelector(
                 Spacer(modifier = Modifier.width(2.dp))
                 Box(
                     modifier = Modifier
-                        .size(64.dp)
+                        .size(48.dp)
                         .clickable { onColorSelected(colorName) }
                         .border(
                             width = 2.dp,

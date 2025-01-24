@@ -2,6 +2,7 @@ package at.ccl3.habipet.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
@@ -46,104 +47,112 @@ fun HabitEditView(navController: NavController, viewModel: HabitViewModel, habit
         // HEADER ROW with BACK BUTTON
         TopHeaderBar(headingText = "Edit", navController = navController, showBackButton = true)
 
-        Column(
+        LazyColumn(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // NAME & DESCRIPTION
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text("Name") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-            OutlinedTextField(
-                value = description,
-                onValueChange = { description = it },
-                label = { Text("Description") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
-            )
-
-            // SELECT REPETITION
-            RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
-
-            // ICON & COLOR SELECTOR
-            IconAndColorSelector(
-                selectedIcon = icon,
-                selectedColor = color,
-                onIconSelected = { icon = it },
-                onColorSelected = { color = it }
-            )
-
-            Row( // UPDATE & DELETE HABIT
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 32.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // SAVE BUTTON
-                Button(onClick = {
-                    if (habit != null) {
-                        // Update the habit with new data
-                        viewModel.update(
-                            habit.copy(
-                                name = name,
-                                description = description,
-                                repetition = repetition,
-                                streak = streak,
-                                icon = icon,
-                                color = color
-                            )
-                        )
-                        navController.popBackStack() // Navigate back after saving
-                    }
-                }) {
-                    Text("Save")
-                }
-
-                // DELETE BUTTON
-                IconButton(
-                    onClick = { showDialog = true },
+            item {
+                // NAME & DESCRIPTION
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Name") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            item {
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text("Description") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+                )
+            }
+            item {
+                // SELECT REPETITION
+                RepetitionSelector(currentRepetition = repetition, onRepetitionChange = { repetition = it })
+            }
+            item {
+                // ICON & COLOR SELECTOR
+                IconAndColorSelector(
+                    selectedIcon = icon,
+                    selectedColor = color,
+                    onIconSelected = { icon = it },
+                    onColorSelected = { color = it }
+                )
+            }
+            item {
+                Row( // UPDATE & DELETE HABIT
                     modifier = Modifier
-                        .size(40.dp)
-                        .background(MaterialTheme.colorScheme.error, shape = CircleShape)
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 32.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Delete,
-                        contentDescription = "Delete Habit",
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(2.dp)
-                    )
+                    // SAVE BUTTON
+                    Button(onClick = {
+                        if (habit != null) {
+                            // Update the habit with new data
+                            viewModel.update(
+                                habit.copy(
+                                    name = name,
+                                    description = description,
+                                    repetition = repetition,
+                                    streak = streak,
+                                    icon = icon,
+                                    color = color
+                                )
+                            )
+                            navController.popBackStack() // Navigate back after saving
+                        }
+                    }) {
+                        Text("Save")
+                    }
+
+                    // DELETE BUTTON
+                    IconButton(
+                        onClick = { showDialog = true },
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(MaterialTheme.colorScheme.error, shape = CircleShape)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = "Delete Habit",
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.padding(2.dp)
+                        )
+                    }
                 }
             }
-
-            // DELETE CONFIRMATION DIALOG
-            if (showDialog) {
-                AlertDialog(
-                    onDismissRequest = { showDialog = false },
-                    title = { Text("Delete Habit") },
-                    text = { Text("Are you sure you want to delete this habit? :(") },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            if (habit != null) {
-                                // Delete habit via HabitViewModel
-                                viewModel.delete(habit)
-                                navController.navigate("home") // Navigate to Home after deleting
+            item {
+                // DELETE CONFIRMATION DIALOG
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text("Delete Habit") },
+                        text = { Text("Are you sure you want to delete this habit? :(") },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                if (habit != null) {
+                                    // Delete habit via HabitViewModel
+                                    viewModel.delete(habit)
+                                    navController.navigate("home") // Navigate to Home after deleting
+                                }
+                            }) {
+                                Text("Delete", color = MaterialTheme.colorScheme.onSurface)
                             }
-                        }) {
-                            Text("Delete", color = MaterialTheme.colorScheme.onSurface)
+                        },
+                        dismissButton = {
+                            TextButton(onClick = { showDialog = false }) {
+                                Text("Cancel", color = MaterialTheme.colorScheme.onSurface)
+                            }
                         }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { showDialog = false }) {
-                            Text("Cancel", color = MaterialTheme.colorScheme.onSurface)
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }
