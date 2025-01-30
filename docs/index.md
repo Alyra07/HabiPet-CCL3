@@ -20,6 +20,10 @@ These features aim to motivate users through positive reinforcement, gamificatio
 
 ---
 
+<div align="float">
+    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="25%" align="right">
+</div>
+
 ## Table of Contents
 
 - [App Structure](#app-structure)
@@ -29,10 +33,6 @@ These features aim to motivate users through positive reinforcement, gamificatio
     - [Heuristic Evaluation](#heuristic-evaluation)
 - [Usability Test Results](#usability-test-results)
 - [Conclusion](#conclusion)
-
-<div align="center">
-    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="25%">
-</div>
 
 ---
 
