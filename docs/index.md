@@ -16,6 +16,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
 - **Calendar and tracking of habit completion**
 - **Shop for customization and rewards** (Pet skins and habitats)
 
+### Download APK on WeTransfer: [CLICK HERE](https://we.tl/t-FARAu7TTef)
 
 ---
 
@@ -174,26 +175,35 @@ We analyzed the current version (20.01.2025) of our Mobile Application to find p
 
 ---
 
+
 # Usability Test Results
 
 ### Participants
 Five participants completed the usability test after providing consent about their answers being used in our university study.
 
-### Task Completion Time
+---
+
+## Task Completion Time
 Most tasks showed similar completion times across all participants, suggesting that the tasks were clearly understood and primarily required execution rather than involving any significant struggle with the interface.
 
 However, task 1 had one notable outlier with User 2, who took significantly longer due to a bug. The “test” selection box was not displayed correctly, and its label was missing, leaving the participant unsure of what to choose and needing assistance. This underscores the need to address UI issues to ensure task clarity and usability. We gave this user a time for task 1, but in actuality, this was only possible because we had to help the user with completing the task. Theoretically, the task success for User 2 for task 1 should be marked as “not completed.”
 
 We also included a visualization of the task completion times with a box plot to better illustrate the potential outliers and the comparison in speed for each task.
 
+![Task Completion times per task](images/taskCompletionTable.png) ![Boxplot of Task completion times](images/taskCompletionBoxplot.png)
 
-### SEQ Results
+---
+
+## SEQ Results
 The SEQ results indicate that tasks 3 (Buy from the Shop) and 4 (Interact with Pets) were the most polished, with all participants giving the highest rating of 7. However, Task 2 (Complete a Habit) had the lowest average SEQ score of 4.8, largely due to its unrefined design. The waiting time before completing the habit was unclear, as the countdown displayed "0 hours and 0 minutes" instead of showing the actual remaining time of 10 seconds in the test setting because we did not include “seconds” in our timer. Additionally, participants had to switch views for the button to refresh, which caused confusion if it hadn’t been explained beforehand.
 
 Task 1 (Create a Habit) had the second lowest average SEQ score of 5.4, primarily due to a bug experienced by User 2. The "test" selection box was not displayed correctly, and the text inside the box was missing, making the task impossible to complete without assistance.
 
+![SEQ Scores per Task](images/SEQTable.png)
 
-### System Usability Scale (SUS)
+---
+
+## System Usability Scale (SUS)
 The SUS scores for each user are as follows:
 - User 1: 55.0
 - User 2: 82.5
@@ -201,7 +211,7 @@ The SUS scores for each user are as follows:
 - User 4: 80.0
 - User 5: 92.5
 
-![/docs/images/SUSBoxplot.PNG](/docs/images/SUSBoxplot.PNG)
+![Boxplot of SUS Scores](images/SUSBoxplot.PNG)
 
 The overall average SUS score for the app is **77.0**.  
 A SUS score of 77.0 is considered "good" according to industry benchmarks.
