@@ -20,6 +20,17 @@ These features aim to motivate users through positive reinforcement, gamificatio
 
 ---
 
+## Table of Contents
+
+- [App Structure](#app-structure)
+    - [Animation Showcase](#animation-showcase)
+- [Usability Test Plan](#usability-test-plan)
+    - [Heuristic Evaluation](#heuristic-evaluation)
+- [Usability Test Results](#usability-test-results)
+- [Conclusion](#conclusion)
+
+---
+
 # App Structure
 
 ## Data
@@ -82,6 +93,25 @@ Utility objects provide calculations and reusable functionalities across the app
 - **HabitUtil**: Contains helper functions for managing habit-related data, such as color, streak goals, rewards, and time progress calculations.
 - **ImageUtil**: Maps string identifiers (e.g., habit icons, pet skins, and habitats) to their corresponding drawable resources.
 - **GifUtil**: Similar to `ImageUtil`, it provides access to GIF and image resources for animations on the PetScreen.
+
+---
+
+## Animation Showcase
+
+**4 different Habis** with three randomly aligned **idle** animations. When **tapped** on the PetScreen, you can see their tapped animation.
+The animations are the same for any purchasable skin for the pets.
+
+### Kitty & Kola
+<div>
+    <img src="gifs/CatBasicShowcase.gif" alt="Default Kitty Animation" width="50%">
+    <img src="gifs/KoalaBasicShowcase.gif" alt="Default Koala Animation" width="50%">
+</div>
+
+### Wha-Lee & Puffy
+<div>
+    <img src="gifs/WhaleBasicShowcase.gif" alt="Wha-Lee Animation" width="50%">
+    <img src="gifs/PufferBasicShowcase.gif" alt="Puffy Animation" width="50%">
+</div>
 
 ---
 
