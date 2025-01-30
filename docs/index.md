@@ -103,14 +103,14 @@ The animations are the same for any purchasable skin for the pets.
 
 ### Kitty & Kola
 <div>
-    <img src="gifs/CatBasicShowcase.gif" alt="Default Kitty Animation" width="50%">
-    <img src="gifs/KoalaBasicShowcase.gif" alt="Default Koala Animation" width="50%">
+    <img src="gifs/CatBasicShowcase.gif" alt="Default Kitty Animation" width="30%">
+    <img src="gifs/KoalaBasicShowcase.gif" alt="Default Koala Animation" width="30%">
 </div>
 
 ### Wha-Lee & Puffy
 <div>
-    <img src="gifs/WhaleBasicShowcase.gif" alt="Wha-Lee Animation" width="50%">
-    <img src="gifs/PufferBasicShowcase.gif" alt="Puffy Animation" width="50%">
+    <img src="gifs/WhaleBasicShowcase.gif" alt="Wha-Lee Animation" width="30%">
+    <img src="gifs/PufferBasicShowcase.gif" alt="Puffy Animation" width="30%">
 </div>
 
 ---
