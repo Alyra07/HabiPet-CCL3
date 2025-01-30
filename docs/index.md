@@ -263,13 +263,18 @@ The SUS scores for each user are as follows:
 The overall average SUS score for the app is **77.0**.  
 A SUS score of 77.0 is considered "good" according to industry benchmarks.
 
-Most users had similar experiences, though some enjoyed the app more than others. For instance, User 5 had a significantly more positive experience compared to User 1, who provided more critical feedback. Users rated most aspects of the app positively, with strong scores for usability and ease of learning. However, the score for reusability ("I think that I would like to use this system frequently.") was relatively low. This is likely due to the app being developed within a short two-week timeframe, meaning it lacked the polish necessary to be fun for a long time.
+Most users had similar experiences, though some enjoyed the app more than others. For instance, User 5 had a significantly more positive experience compared to User 1, who provided more critical feedback. Users rated most aspects of the app positively, with strong scores for usability and ease of learning. However, the score for reusability ("I think that I would like to use this system frequently.") was relatively low. This is likely due to the app being developed within a short two-week timeframe, meaning it lacked the polish necessary to be completely satisfying. Also, the low score in reusability could be attributed to the test participants not being accustomed to the general idea of using a habit tracker app in their everyday life.
 
 ---
 
 ## Summary of Key Findings
-- **Strengths:** Users appreciated the playful design, especially the pet animations and habit customization features.
+- **Strengths:** Users appreciated the playful and clean design, especially the pet animations and habit customization features.
 - **Weaknesses:** Visual bugs, lack of feedback for task completion, and limited calendar functionality.
+
+### Possible Future Improvements
+- **GIF Animation Loading:** The current .apk is very large due to all the GIFs being saved and loaded from the `/res/drawable` folder. Polishing the animation logic was simply not on our scope for this project.
+- **HomeScreen Calendar:** Adding the feature to click on days to see which habits have been completed on that particular day of the month. Additionally, let the user be able to switch between months.
+- **General Design:** Especially the `HabitDetailsView` could be improved design-wise, but for a time limit of two weeks, it was more crucial to focus on the main "selling points" (MVP) of our app than on the detail design.
 
 ---
 
