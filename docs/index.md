@@ -31,7 +31,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
 - [Conclusion](#conclusion)
 
 <div align="center">
-    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="500">
+    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="25%">
 </div>
 
 ---
