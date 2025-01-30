@@ -211,17 +211,16 @@ We analyzed the current version (20.01.2025) of our Mobile Application to find p
 
 ### Issues Table
 
-| Issue | Description | Heuristic | Severity |
-|-------|-------------|-----------|----------|
-| 1 | The shop does not display all categories of items on first sight, you have to scroll down to see that there are different buying options than just pets. | 6. Recognition Rather Than Recall | 3 |
-| 2 | In the Shop right now, you have to scroll all the way down to the section "Habitats" without a faster way to see only habitats, like for example filtering for only Backgrounds. | 7. Flexibility and Efficiency of Use | 5 |
-| 3 | In the "Customize" window when you have a lot of different skins it would maybe be easier to filter for something you want to add instead of scrolling through. | 7. Flexibility and Efficiency of Use | 4 |
-| 4 | On the calendar page right now, there is not really a way to switch to different months than the one you are currently in. Even though you maybe want to view your old achievements. | 3. User Control and Freedom | 7 |
-| 5 | In the current version the "Icon" input field in the "Add New Habit" page seems a bit confusing because a user would not know what to input here by default. | 9. Help Users Recognize, Diagnose, and Recover from Errors | 7 |
-| 6 | There is no description about what the app is used for which could potentially confuse people who download the app out of curiosity without having ever used a habit app. | 10. Help and Documentation | 5 |
+| Issue | Description                                                                                                                                                                          | Heuristic                                                  | Severity |
+|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|----------|
+| 1     | The shop does not display all categories of items on first sight, you have to scroll down to see that there are different buying options than just pets.                             | 6. Recognition Rather Than Recall                          | 3        |
+| 2     | In the Shop right now, you have to scroll all the way down to the section "Habitats" without a faster way to see only habitats, like for example filtering for only Backgrounds.     | 7. Flexibility and Efficiency of Use                       | 5        |
+| 3     | In the "Customize" window when you have a lot of different skins it would maybe be easier to filter for something you want to add instead of scrolling through.                      | 7. Flexibility and Efficiency of Use                       | 4        |
+| 4     | On the calendar page right now, there is not really a way to switch to different months than the one you are currently in. Even though you maybe want to view your old achievements. | 3. User Control and Freedom                                | 7        |
+| 5     | In the current version the "Icon" input field in the "Add New Habit" page seems a bit confusing because a user would not know what to input here by default.                         | 9. Help Users Recognize, Diagnose, and Recover from Errors | 7        |
+| 6     | There is no description about what the app is used for which could potentially confuse people who download the app out of curiosity without having ever used a habit app.            | 10. Help and Documentation                                 | 5        |
 
 ---
-
 
 # Usability Test Results
 
@@ -273,6 +272,7 @@ Most users had similar experiences, though some enjoyed the app more than others
 
 ### Possible Future Improvements
 - **GIF Animation Loading:** The current .apk is very large due to all the GIFs being saved and loaded from the `/res/drawable` folder. Polishing the animation logic was simply not on our scope for this project.
+- **Habit Completion:** The `HabitCompleteCard` does not show its content dynamically yet, the user has to refresh the Home page to see the currently active completion status.
 - **HomeScreen Calendar:** Adding the feature to click on days to see which habits have been completed on that particular day of the month. Additionally, let the user be able to switch between months.
 - **General Design:** Especially the `HabitDetailsView` could be improved design-wise, but for a time limit of two weeks, it was more crucial to focus on the main "selling points" (MVP) of our app than on the detail design.
 
