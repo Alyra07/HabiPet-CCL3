@@ -29,6 +29,10 @@ These features aim to motivate users through positive reinforcement, gamificatio
 - [Usability Test Results](#usability-test-results)
 - [Conclusion](#conclusion)
 
+<div align="center#">
+    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="50%">
+</div>
+
 ---
 
 # App Structure
@@ -93,6 +97,18 @@ Utility objects provide calculations and reusable functionalities across the app
 - **HabitUtil**: Contains helper functions for managing habit-related data, such as color, streak goals, rewards, and time progress calculations.
 - **ImageUtil**: Maps string identifiers (e.g., habit icons, pet skins, and habitats) to their corresponding drawable resources.
 - **GifUtil**: Similar to `ImageUtil`, it provides access to GIF and image resources for animations on the PetScreen.
+
+### Screenshots
+
+<p align="center">
+  <img src="images/HomeScreen.jpeg" alt="Plot 1" width="30%">
+  <img src="images/HabitsScreen.jpeg" alt="Plot 2" width="30%">
+  <img src="images/AddHabitScreen.jpeg" alt="Plot 3" width="30%">
+</p>
+<p align="center">
+  <img src="images/PetScreenDefault.jpeg" alt="Plot 1" width="30%">
+  <img src="images/ShopScreen-skins.jpeg" alt="Plot 2" width="30%">
+</p>
 
 ---
 
