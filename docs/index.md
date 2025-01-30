@@ -23,14 +23,15 @@ These features aim to motivate users through positive reinforcement, gamificatio
 ## Table of Contents
 
 - [App Structure](#app-structure)
+    - [Screenshots](#screenshots)
     - [Animation Showcase](#animation-showcase)
 - [Usability Test Plan](#usability-test-plan)
     - [Heuristic Evaluation](#heuristic-evaluation)
 - [Usability Test Results](#usability-test-results)
 - [Conclusion](#conclusion)
 
-<div align="center#">
-    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="50%">
+<div align="center">
+    <img src="images/HabiPetLogo.png" alt="HabiPet Logo" width="500">
 </div>
 
 ---
