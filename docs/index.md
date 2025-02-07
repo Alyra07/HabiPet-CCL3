@@ -16,7 +16,7 @@ These features aim to motivate users through positive reinforcement, gamificatio
 - **Calendar and tracking of habit completion**
 - **Shop for customization and rewards** (Pet skins and habitats)
 
-### Download APK on WeTransfer: [CLICK HERE](https://we.tl/t-FARAu7TTef)
+### Download APK on WeTransfer: [CLICK HERE](https://we.tl/t-ODOrtOT0qx)
 
 ---
 
